@@ -9,7 +9,7 @@ export default function LoginPage() {
   await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `https://nexus-1lk1n125m-jayshah-iits-projects.vercel.app/auth/callback`,
+      redirectTo: `https://nexus-am-one.vercel.app/auth/callback`,
     },
   })
 }
