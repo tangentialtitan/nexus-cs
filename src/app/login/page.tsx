@@ -9,7 +9,7 @@ export default function LoginPage() {
   await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `https://improved-potato-jj65p7g75jjq35rqj-3000.app.github.dev/auth/callback`,
+      redirectTo: `https://nexus-1lk1n125m-jayshah-iits-projects.vercel.app/auth/callback`,
     },
   })
 }
