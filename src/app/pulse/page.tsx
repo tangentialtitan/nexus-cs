@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCourses, getFeedbackSummary } from './actions'
 import { FeedbackForm } from '@/components/pulse/FeedbackForm'
 import type { UserRole } from '@/types/database'
+import { Navbar } from '@/components/layout/Navbar'
 
 export default async function PulsePage() {
   const supabase = await createClient()
@@ -25,6 +26,7 @@ export default async function PulsePage() {
 
   return (
     <main className="min-h-screen bg-slate-50">
+    <Navbar /> 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-1">

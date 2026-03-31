@@ -1,9 +1,10 @@
 import Link from 'next/link'
+import { Navbar } from '@/components/layout/Navbar'
 
 export default function LandingPage() {
   return (
     <main className="min-h-screen bg-slate-50 flex flex-col">
-
+      <Navbar />
       {/* Nav */}
       <nav className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">

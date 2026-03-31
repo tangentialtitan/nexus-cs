@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getSeniors } from './actions'
+import { Navbar } from '@/components/layout/Navbar'
 
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -22,6 +23,7 @@ export default async function PathfinderPage() {
 
   return (
     <main className="min-h-screen bg-slate-50">
+    <Navbar />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Header */}
