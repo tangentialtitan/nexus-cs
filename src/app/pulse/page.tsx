@@ -53,7 +53,7 @@ export default async function PulsePage() {
                   </span>
                 </div>
                 <div className="px-5 py-4 space-y-3">
-                  {summary.map((s) => (
+                 {(summary as any[]).map((s) => (
                     <div key={s.course_code} className="space-y-1">
                       <div className="flex items-center justify-between text-xs">
                         <span className="font-mono text-blue-600 font-medium">{s.course_code}</span>
