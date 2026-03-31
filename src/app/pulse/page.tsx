@@ -16,7 +16,7 @@ export default async function PulsePage() {
     .eq('id', session.user.id)
     .single()
 
-  const isAdmin = (['convener', 'admin'] as UserRole[]).includes(profile?.role ?? 'student')
+  const isAdmin = ['convener', 'admin'].includes((profile as any)?.role ?? 'student')
 
   const [courses, summary] = await Promise.all([
     getCourses(),
