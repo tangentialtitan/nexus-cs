@@ -96,12 +96,12 @@ export async function getFeedbackSummary() {
   if (!session) return null
 
   const { data: profile } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', session.user.id)
-    .single()
+  .from('profiles')
+  .select('role')
+  .eq('id', session.user.id)
+  .single()
 
-  if (!profile || !['convener', 'admin'].includes(profile.role)) return null
+if (!profile || !['convener', 'admin'].includes((profile as any).role)) return null
 
   const { data, error } = await supabase
     .from('feedback_summary')
