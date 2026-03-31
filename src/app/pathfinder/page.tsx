@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getSeniors } from './actions'
-import { AddSeniorForm } from '@/components/pathfinder/AddSeniorForm'
+
 
 const CATEGORY_COLORS: Record<string, string> = {
   'Consult':    'bg-blue-50 text-blue-700 border-blue-200',
@@ -37,10 +37,10 @@ export default async function PathfinderPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div>
 
           {/* Cards */}
-          <div className="lg:col-span-2">
+          <div>
 
             {/* Category chips */}
             <div className="flex flex-wrap gap-2 mb-4">
@@ -103,9 +103,7 @@ export default async function PathfinderPage() {
           </div>
 
           {/* Add Form */}
-          <div>
-            <AddSeniorForm />
-          </div>
+          
 
         </div>
       </div>
