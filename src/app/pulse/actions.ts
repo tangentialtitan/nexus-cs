@@ -59,7 +59,7 @@ export async function submitFeedback(
     return { status: 'error', message: validationError }
   }
 
-  const { error } = await supabase.from('feedback').insert(payload)
+  const { error } = await supabase.from('feedback').insert(payload as any)
 
   if (error) {
     console.error('[Pulse] feedback insert error:', error)
