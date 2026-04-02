@@ -30,9 +30,16 @@
     ])
 
     const firstName = (profile as any)?.full_name?.split(' ')[0] ?? 'Engineer'
-    const isConvener = ['convener' ].includes((profile as any)?.role ?? '')
-    const isAdmin = ['Admin' ].includes((profile as any)?.role ?? '')
+    const role = (profile as any)?.role ?? 'student'
+const isConvener = ['convener', 'admin', 'committee'].includes(role)
 
+const ROLE_TITLE: Record<string, string> = {
+  convener: 'Class Convener',
+  admin: 'Admin',
+  committee: 'Student Admin',
+  student: 'Student',
+}
+const roleTitle = ROLE_TITLE[role] ?? ''
     const QUICK_LINKS = [
       { label: 'MoodleNew',      href: 'https://moodlenew.iitd.ac.in',    icon: '🎓' },
       { label: 'Moodle',         href: 'https://moodle.iitd.ac.in',    icon: '🎓' },
@@ -98,14 +105,9 @@
               <span className="text-blue-200 text-xs font-mono">
                 {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })}
               </span>
-              {isConvener && (
+              {roleTitle && (
                 <span className="text-xs bg-white/20 text-white px-2.5 py-0.5 rounded-full font-mono">
-                  Class Convener
-                </span>
-              )}
-              {isAdmin && (
-                <span className="text-xs bg-white/20 text-white px-2.5 py-0.5 rounded-full font-mono">
-                  Admin
+                  {roleTitle}
                 </span>
               )}
             </div>
