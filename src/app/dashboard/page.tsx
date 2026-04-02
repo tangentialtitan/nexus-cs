@@ -23,10 +23,10 @@ export default async function DashboardPage() {
     supabase.from('feedback').select('*', { count: 'exact', head: true }),
     supabase.from('opportunities').select('*', { count: 'exact', head: true }),
     supabase
-      .from('announcements')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(10),
+  .from('announcements')
+  .select('*, courses(code, name)')
+  .order('created_at', { ascending: false })
+  .limit(10),
   ])
 
   const firstName = (profile as any)?.full_name?.split(' ')[0] ?? 'Engineer'
@@ -145,21 +145,33 @@ export default async function DashboardPage() {
 
               <div className="divide-y divide-slate-50">
                 {announcements && announcements.length > 0 ? (
-                  announcements.map((a: any) => (
-                    <div key={a.id} className="px-5 py-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <h3 className="font-semibold text-slate-900 text-sm">{a.title}</h3>
-                        <span className="text-[10px] text-slate-300 font-mono flex-shrink-0 mt-0.5">
-                          {new Date(a.created_at).toLocaleDateString('en-IN', {
-                            day: 'numeric',
-                            month: 'short',
-                          })}
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1 leading-relaxed">{a.body}</p>
-                    </div>
-                  ))
-                ) : (
+  announcements.map((a: any) => (
+    <div key={a.id} className="px-5 py-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            {a.courses ? (
+              <span className="text-[10px] font-mono bg-blue-50 text-blue-600 border border-blue-100 px-2 py-0.5 rounded-full">
+                {a.courses.code}
+              </span>
+            ) : (
+              <span className="text-[10px] font-mono bg-slate-50 text-slate-400 border border-slate-100 px-2 py-0.5 rounded-full">
+                General
+              </span>
+            )}
+          </div>
+          <h3 className="font-semibold text-slate-900 text-sm">{a.title}</h3>
+          <p className="text-sm text-slate-500 mt-1 leading-relaxed">{a.body}</p>
+        </div>
+        <span className="text-[10px] text-slate-300 font-mono flex-shrink-0 mt-0.5">
+          {new Date(a.created_at).toLocaleDateString('en-IN', {
+            day: 'numeric',
+            month: 'short',
+          })}
+        </span>
+      </div>
+    </div>
+  ))) : (
                   <div className="px-5 py-14 text-center">
                     <p className="text-2xl mb-2">📭</p>
                     <p className="text-sm text-slate-400">No announcements yet.</p>
