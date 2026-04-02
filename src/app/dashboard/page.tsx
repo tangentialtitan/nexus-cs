@@ -214,6 +214,7 @@ export default async function DashboardPage() {
               </div>
               <div className="p-2">
                 {QUICK_LINKS.map((l) => (
+                  <a
                   
                     key={l.label}
                     href={l.href}
