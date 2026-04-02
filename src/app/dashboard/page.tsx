@@ -29,7 +29,7 @@ export default async function DashboardPage() {
       .limit(10),
   ])
 
-  const firstName = profile?.full_name?.split(' ')[0] ?? 'Engineer'
+  const firstName = (profile as any)?.full_name?.split(' ')[0] ?? 'Engineer'
   const isConvener = ['convener', 'admin'].includes((profile as any)?.role ?? '')
 
   const QUICK_LINKS = [
