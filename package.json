@@ -6,10 +6,7 @@
   "dev": "next dev",
   "build": "next build",
   "start": "next start",
-  "lint": "eslint",
-  "cf:build": "npx @opennextjs/cloudflare build",
-  "cf:preview": "npx @opennextjs/cloudflare build && wrangler pages dev",
-  "cf:deploy": "npx @opennextjs/cloudflare build && wrangler pages deploy"
+  "lint": "eslint"
 },
 
   "dependencies": {
@@ -35,8 +32,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "@opennextjs/cloudflare": "latest",
-    "wrangler": "latest"
+    "typescript": "^5"    
   }
 }
