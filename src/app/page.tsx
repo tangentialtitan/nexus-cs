@@ -1,25 +1,10 @@
 import Link from 'next/link'
-import { Navbar } from '@/components/layout/Navbar'
+
 
 export default function LandingPage() {
   return (
     <main className="min-h-screen bg-slate-50 flex flex-col">
-      <Navbar />
-      {/* Nav */}
-      <nav className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <span className="font-mono font-semibold text-slate-900 text-sm">
-            Nexus <span className="text-blue-600">·</span> AM Portal
-          </span>
-          <Link
-            href="/login"
-            className="text-sm font-medium bg-blue-600 text-white px-4 py-1.5 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Sign in
-          </Link>
-        </div>
-      </nav>
-
+      
       {/* Hero */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center">
         <div className="inline-block bg-blue-50 border border-blue-100 text-blue-600 text-xs font-mono px-3 py-1 rounded-full mb-6">
