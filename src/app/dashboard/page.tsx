@@ -33,11 +33,11 @@ export default async function DashboardPage() {
   const isConvener = ['convener', 'admin'].includes((profile as any)?.role ?? '')
 
   const QUICK_LINKS = [
+    { label: 'MoodleNew',         href: 'https://moodlenew.iitd.ac.in',    icon: '🎓' },
     { label: 'Moodle',         href: 'https://moodle.iitd.ac.in',    icon: '🎓' },
-    { label: 'ERP',            href: 'https://erp.iitd.ac.in',       icon: '🔧' },
-    { label: 'Timetable',      href: 'https://academics.iitd.ac.in', icon: '📅' },
+    { label: 'ERP',            href: 'https://eacademics.iitd.ac.in/sportal/logincheck',       icon: '🔧' },
     { label: 'Library',        href: 'https://library.iitd.ac.in',   icon: '📚' },
-    { label: 'OCS',            href: 'https://ocs.iitd.ac.in',       icon: '💼' },
+    { label: 'OCS',            href: 'https://ocs.iitd.ac.in/portal/student',       icon: '💼' },
     { label: 'Webmail',        href: 'https://webmail.iitd.ac.in',   icon: '✉️' },
   ]
 
