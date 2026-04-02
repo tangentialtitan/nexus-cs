@@ -1,6 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
 
-export type UserRole = 'student' | 'convener' | 'admin'
+export type UserRole = 'student' | 'convener' | 'admin' | 'committee'
 export type ResourceCategory = 'PYQ' | 'Lecture Notes' | 'Lab Manual' | 'Tutorial' | 'Reference Book' | 'Other'
 export type OpportunityType = 'Research Internship' | 'Corporate Internship' | 'Full-Time Placement' | 'Exchange Program'
 

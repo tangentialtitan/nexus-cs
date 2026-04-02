@@ -30,7 +30,8 @@
     ])
 
     const firstName = (profile as any)?.full_name?.split(' ')[0] ?? 'Engineer'
-    const isConvener = ['convener', 'admin'].includes((profile as any)?.role ?? '')
+    const isConvener = ['convener' ].includes((profile as any)?.role ?? '')
+    const isAdmin = ['Admin' ].includes((profile as any)?.role ?? '')
 
     const QUICK_LINKS = [
       { label: 'MoodleNew',      href: 'https://moodlenew.iitd.ac.in',    icon: '🎓' },
@@ -100,6 +101,11 @@
               {isConvener && (
                 <span className="text-xs bg-white/20 text-white px-2.5 py-0.5 rounded-full font-mono">
                   Class Convener
+                </span>
+              )}
+              {isAdmin && (
+                <span className="text-xs bg-white/20 text-white px-2.5 py-0.5 rounded-full font-mono">
+                  Admin
                 </span>
               )}
             </div>
