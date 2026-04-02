@@ -17,10 +17,10 @@ export default function AddAnnouncementPage() {
     setLoading(true)
     setError('')
 
-    const { error } = await supabase
-      .from('announcements')
-      .insert({ title, body })
-
+   const { error } = await supabase
+  .from('announcements')
+  .insert({ title, body } as any)
+  
     if (error) {
       setError('Failed to post. Make sure you are the Class Convener.')
       setLoading(false)
