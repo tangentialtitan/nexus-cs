@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "eslint",
+  "cf:build": "npx @opennextjs/cloudflare build",
+  "cf:preview": "npx @opennextjs/cloudflare build && wrangler pages dev",
+  "cf:deploy": "npx @opennextjs/cloudflare build && wrangler pages deploy"
+},
+
   "dependencies": {
     "@supabase/ssr": "^0.10.0",
     "@supabase/supabase-js": "^2.101.0",
@@ -31,6 +35,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@opennextjs/cloudflare": "latest",
+    "wrangler": "latest"
   }
 }
