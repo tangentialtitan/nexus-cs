@@ -17,9 +17,9 @@ const ACADEMICS = [
 
 const INTERN_RESOURCES = [
   {
-    code: 'PrepCatalyst',
-    name: 'OCS Internship Resources',
-    link: '',
+    code: 'Intern Prep',
+    name: 'Intern Prep Series',
+    link: 'https://github.com/devclub-iitd/Intern-Prep-Series-25/tree/main',
     icon: '💼',
     color: 'bg-blue-50 text-blue-700 border-blue-200',
   },
