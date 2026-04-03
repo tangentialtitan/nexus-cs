@@ -7,18 +7,11 @@ import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react'
 
 const initialState: SeniorFormState = { status: 'idle' }
 
-const CATEGORIES = ['Consult', 'Finance', 'Tech', 'Core', 'Management', 'Other']
-
-const DEPARTMENTS = [
-  'Applied Mechanics',
-  'Computer Science',
-  'Electrical Engineering',
-  'Mechanical Engineering',
-  'Civil Engineering',
-  'Chemical Engineering',
-  'Physics',
-  'Mathematics',
-  'Other',
+const OPPORTUNITY_TYPES = [
+  'Research Internship',
+  'Corporate Internship',
+  'Full-Time Placement',
+  'Exchange Program',
 ]
 
 export function AddSeniorForm() {
@@ -53,84 +46,138 @@ export function AddSeniorForm() {
 
         <div className="space-y-1">
           <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
-            Senior Name *
-          </label>
-          <input
-            name="senior_name"
-            required
-            placeholder="e.g. Rohit Sharma"
-            className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
-          />
-        </div>
-
-        <div className="space-y-1">
-          <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
-            Category *
+            Opportunity Type *
           </label>
           <select
-            name="category"
+            name="type"
             required
             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
           >
-            <option value="">Select category…</option>
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>{c}</option>
+            <option value="">Select type...</option>
+            {OPPORTUNITY_TYPES.map((type) => (
+              <option key={type} value={type}>{type}</option>
             ))}
           </select>
         </div>
 
         <div className="space-y-1">
           <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
-            Company Name *
+            Company / University *
           </label>
           <input
-            name="company_name"
+            name="company_or_uni"
             required
-            placeholder="e.g. McKinsey, Google, L&T"
+            placeholder="e.g. Google, IITD, ETH Zurich"
             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
           />
         </div>
 
         <div className="space-y-1">
           <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
-            Year of Joining Campus *
+            Role / Program Title *
           </label>
           <input
-            name="year_joined"
+            name="role_title"
             required
-            type="number"
-            min="2000"
-            max="2030"
-            placeholder="e.g. 2020"
-            className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
-          />
-        </div>
-
-        <div className="space-y-1">
-          <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
-            Department *
-          </label>
-          <select
-            name="department"
-            required
+            placeholder="e.g. SDE Intern, Quant Intern"
             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
-          >
-            <option value="">Select department…</option>
-            {DEPARTMENTS.map((d) => (
-              <option key={d} value={d}>{d}</option>
-            ))}
-          </select>
+          />
         </div>
 
         <div className="space-y-1">
           <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
-            Contact Info
+            Skills Required *
           </label>
           <input
-            name="contact_info"
-            placeholder="email / phone / LinkedIn"
+            name="skills_required"
+            required
+            placeholder="e.g. DSA, ML, SQL"
             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
           />
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
+            Location
+          </label>
+          <input
+            name="location"
+            placeholder="e.g. Bangalore / Remote"
+            className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
+            Duration
+          </label>
+          <input
+            name="duration"
+            placeholder="e.g. 8 weeks"
+            className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
+            Stipend
+          </label>
+          <input
+            name="stipend"
+            placeholder="e.g. 80,000 INR/month"
+            className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
+            Description
+          </label>
+          <textarea
+            name="description"
+            rows={3}
+            placeholder="Share key details for juniors"
+            className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm resize-none placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">
+            Application Link
+          </label>
+          <input
+            name="application_link"
+            placeholder="https://..."
+            className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="space-y-1">
+            <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">Contact Name</label>
+            <input
+              name="contact_name"
+              placeholder="e.g. Priya"
+              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">Contact Roll</label>
+            <input
+              name="contact_roll"
+              placeholder="2022CS..."
+              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-mono text-slate-400 uppercase tracking-widest">Contact Email</label>
+            <input
+              name="contact_email"
+              type="email"
+              placeholder="name@domain.com"
+              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
+            />
+          </div>
         </div>
 
         {state.status === 'error' && (

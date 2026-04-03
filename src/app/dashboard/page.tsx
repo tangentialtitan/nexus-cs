@@ -18,13 +18,14 @@
     const [
       // { count: feedbackCount },
       // { count: seniorCount },
-      { data: announcements },
+      { data: opportunities },
     ] = await Promise.all([
       // supabase.from('feedback').select('*', { count: 'exact', head: true }),
       // supabase.from('opportunities').select('*', { count: 'exact', head: true }),
       supabase
-    .from('announcements')
-    .select('*, courses(code, name)')
+    .from('opportunities')
+    .select('id, type, company_or_uni, role_title, description, created_at')
+    .eq('is_active', true)
     .order('created_at', { ascending: false })
     .limit(10),
     ])
@@ -136,14 +137,14 @@ const roleTitle = ROLE_TITLE[role] ?? ''
           {/* Main Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            {/* Left — Announcements */}
+            {/* Left — Opportunities */}
             <div className="lg:col-span-2">
               <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
                 <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="text-base">📢</span>
                     <h2 className="text-xs font-mono text-slate-400 uppercase tracking-widest">
-                      Announcements
+                        Opportunities
                     </h2>
                   </div>
                   {isConvener && (
@@ -151,30 +152,25 @@ const roleTitle = ROLE_TITLE[role] ?? ''
                       href="/announcements/add"
                       className="text-xs bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition-colors font-medium"
                     >
-                      + New
+                        + Add
                     </Link>
                   )}
                 </div>
 
                 <div className="divide-y divide-slate-50">
-                  {announcements && announcements.length > 0 ? (
-    announcements.map((a: any) => (
+                    {opportunities && opportunities.length > 0 ? (
+      opportunities.map((a: any) => (
       <div key={a.id} className="px-5 py-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              {a.courses ? (
                 <span className="text-[10px] font-mono bg-blue-50 text-blue-600 border border-blue-100 px-2 py-0.5 rounded-full">
-                  {a.courses.code}
+                  {a.type}
                 </span>
-              ) : (
-                <span className="text-[10px] font-mono bg-slate-50 text-slate-400 border border-slate-100 px-2 py-0.5 rounded-full">
-                  General
-                </span>
-              )}
             </div>
-            <h3 className="font-semibold text-slate-900 text-sm">{a.title}</h3>
-            <p className="text-sm text-slate-500 mt-1 leading-relaxed">{a.body}</p>
+              <h3 className="font-semibold text-slate-900 text-sm">{a.role_title}</h3>
+              <p className="text-xs text-slate-400 font-mono mt-1">{a.company_or_uni}</p>
+              {a.description && <p className="text-sm text-slate-500 mt-2 leading-relaxed">{a.description}</p>}
           </div>
           <span className="text-[10px] text-slate-300 font-mono flex-shrink-0 mt-0.5">
             {new Date(a.created_at).toLocaleDateString('en-IN', {
@@ -188,13 +184,13 @@ const roleTitle = ROLE_TITLE[role] ?? ''
     ))) : (
                     <div className="px-5 py-14 text-center">
                       <p className="text-2xl mb-2">📭</p>
-                      <p className="text-sm text-slate-400">No announcements yet.</p>
+                      <p className="text-sm text-slate-400">No opportunities yet.</p>
                       {isConvener && (
                         <Link
                           href="/announcements/add"
                           className="text-xs text-blue-600 underline mt-1 inline-block"
                         >
-                          Post the first one
+                          Add the first one
                         </Link>
                       )}
                     </div>

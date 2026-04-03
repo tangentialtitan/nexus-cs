@@ -3,7 +3,9 @@
 import { useActionState, useRef, useState } from 'react'
 import { submitFeedback } from '@/app/pulse/actions'
 import type { FeedbackFormState } from '@/app/pulse/actions'
-import type { Course } from '@/types/database'
+import type { Tables } from '@/types/database'
+
+type CourseOption = Pick<Tables<'courses'>, 'id' | 'code' | 'name' | 'semester'>
 
 import { Button }   from '@/components/ui/button'
 import { Label }    from '@/components/ui/label'
@@ -15,7 +17,7 @@ import { cn }       from '@/lib/utils'
 import { ShieldCheck, Send, Star, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react'
 
 interface FeedbackFormProps {
-  courses: Course[]
+  courses: CourseOption[]
 }
 
 function StarRating({
@@ -132,7 +134,7 @@ export function FeedbackForm({ courses }: FeedbackFormProps) {
 
   const isValid = !!courseId && rating > 0
 
-  const bySemester = courses.reduce<Record<number, Course[]>>((acc, c) => {
+  const bySemester = courses.reduce<Record<number, CourseOption[]>>((acc, c) => {
     ;(acc[c.semester] ??= []).push(c)
     return acc
   }, {})

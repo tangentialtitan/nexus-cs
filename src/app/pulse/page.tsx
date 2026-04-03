@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getCourses, getFeedbackSummary } from './actions'
 import { FeedbackForm } from '@/components/pulse/FeedbackForm'
-import type { UserRole } from '@/types/database'
 import { Navbar } from '@/components/layout/Navbar'
 
 export default async function PulsePage() {

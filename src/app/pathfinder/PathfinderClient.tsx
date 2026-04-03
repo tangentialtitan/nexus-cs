@@ -3,12 +3,10 @@
 import { useState } from 'react'
 
 const CATEGORY_COLORS: Record<string, string> = {
-  'Consult':    'bg-blue-50 text-blue-700 border-blue-200',
-  'Finance':    'bg-emerald-50 text-emerald-700 border-emerald-200',
-  'Tech':       'bg-violet-50 text-violet-700 border-violet-200',
-  'Core':       'bg-orange-50 text-orange-700 border-orange-200',
-  'Management': 'bg-pink-50 text-pink-700 border-pink-200',
-  'Other':      'bg-slate-50 text-slate-600 border-slate-200',
+  'Research Internship': 'bg-blue-50 text-blue-700 border-blue-200',
+  'Corporate Internship': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  'Full-Time Placement': 'bg-violet-50 text-violet-700 border-violet-200',
+  'Exchange Program': 'bg-orange-50 text-orange-700 border-orange-200',
 }
 
 export default function PathfinderClient({ seniors }: { seniors: any[] }) {
@@ -16,13 +14,13 @@ export default function PathfinderClient({ seniors }: { seniors: any[] }) {
 
   const filtered = active === 'All'
     ? seniors
-    : seniors.filter((s) => s.category === active)
+    : seniors.filter((s) => s.type === active)
 
   return (
     <div>
       {/* Category chips */}
       <div className="flex flex-wrap gap-2 mb-4">
-        {['All', 'Consult', 'Finance', 'Tech', 'Core', 'Management', 'Other'].map((cat) => (
+        {['All', 'Research Internship', 'Corporate Internship', 'Full-Time Placement', 'Exchange Program'].map((cat) => (
           <span
             key={cat}
             onClick={() => setActive(cat)}
@@ -50,27 +48,40 @@ export default function PathfinderClient({ seniors }: { seniors: any[] }) {
             >
               <div className="flex items-start justify-between gap-2 mb-3">
                 <div>
-                  <h3 className="font-semibold text-slate-900">{s.senior_name}</h3>
-                  <p className="text-sm text-slate-500 mt-0.5">{s.company_name}</p>
+                  <h3 className="font-semibold text-slate-900">{s.role_title}</h3>
+                  <p className="text-sm text-slate-500 mt-0.5">{s.company_or_uni}</p>
                 </div>
-                <span className={`text-xs font-mono px-2.5 py-1 rounded-full border flex-shrink-0 ${CATEGORY_COLORS[s.category] ?? CATEGORY_COLORS['Other']}`}>
-                  {s.category}
+                <span className={`text-xs font-mono px-2.5 py-1 rounded-full border flex-shrink-0 ${CATEGORY_COLORS[s.type] ?? 'bg-slate-50 text-slate-600 border-slate-200'}`}>
+                  {s.type}
                 </span>
               </div>
 
               <div className="space-y-1.5 text-xs text-slate-400 font-mono">
-                <div className="flex items-center gap-2">
-                  <span>🎓</span>
-                  <span>{s.department}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span>📅</span>
-                  <span>Batch of {s.year_joined}</span>
-                </div>
-                {s.contact_info && (
+                {s.location && (
+                  <div className="flex items-center gap-2">
+                    <span>📍</span>
+                    <span>{s.location}</span>
+                  </div>
+                )}
+                {s.duration && (
+                  <div className="flex items-center gap-2">
+                    <span>⏳</span>
+                    <span>{s.duration}</span>
+                  </div>
+                )}
+                {s.skills_required?.length > 0 && (
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {s.skills_required.slice(0, 4).map((skill: string) => (
+                      <span key={skill} className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {(s.contact_name || s.contact_email) && (
                   <div className="flex items-center gap-2 pt-2 mt-2 border-t border-slate-100">
                     <span>✉</span>
-                    <span className="text-blue-600 break-all">{s.contact_info}</span>
+                    <span className="text-blue-600 break-all">{s.contact_name ?? 'Contact'}{s.contact_email ? ` · ${s.contact_email}` : ''}</span>
                   </div>
                 )}
               </div>

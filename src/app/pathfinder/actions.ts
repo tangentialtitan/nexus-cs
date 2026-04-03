@@ -1,20 +1,21 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/cache'
+import{createClient} from '@/lib/supabase/server'
+import{revalidatePath} from 'next/cache'
+import type{OpportunityInsert} from '@/types/database'
 
 export type SeniorFormState = {
-  status: 'idle' | 'success' | 'error'
+  status: 'idle'|'success'|'error'
   message?: string
 }
 
 export async function getSeniors() {
   const supabase = await createClient()
 
-  const { data, error } = await supabase
-    .from('opportunities')
-    .select('*')
-    .order('created_at', { ascending: false })
+  const {data, error} =
+      await supabase.from('opportunities').select('*').order('created_at', {
+        ascending: false
+      })
 
   if (error) return []
   return data ?? []
@@ -26,23 +27,48 @@ export async function addSenior(
 ): Promise<SeniorFormState> {
   const supabase = await createClient()
 
-  const { data: { session } } = await supabase.auth.getSession()
-  if (!session) return { status: 'error', message: 'You must be signed in.' }
+  const {data: {session}} = await supabase.auth.getSession()
+  if (!session) return {
+    status: 'error', message: 'You must be signed in.'
+  }
 
-  const { error } = await supabase.from('opportunities').insert({
-    senior_name:  formData.get('senior_name') as string,
-    category:     formData.get('category') as string,
-    company_name: formData.get('company_name') as string,
-    year_joined:  parseInt(formData.get('year_joined') as string),
-    department:   formData.get('department') as string,
-    contact_info: (formData.get('contact_info') as string) || null,
-  } as any)
+  const skillsRequired = (formData.get('skills_required') as string)
+                             .split(',')
+                             .map((skill) => skill.trim())
+                             .filter(Boolean)
+
+  const payload: OpportunityInsert = {
+    type: formData.get('type') as OpportunityInsert['type'],
+    company_or_uni: formData.get('company_or_uni') as string,
+    role_title: formData.get('role_title') as string,
+    location: (formData.get('location') as string)?.trim() || null,
+    stipend: (formData.get('stipend') as string)?.trim() || null,
+    duration: (formData.get('duration') as string)?.trim() || null,
+    skills_required: skillsRequired,
+    description: (formData.get('description') as string)?.trim() || null,
+    application_link:
+        (formData.get('application_link') as string)?.trim() || null,
+    contact_name: (formData.get('contact_name') as string)?.trim() || null,
+    contact_roll: (formData.get('contact_roll') as string)?.trim() || null,
+    contact_email: (formData.get('contact_email') as string)?.trim() || null,
+    added_by: session.user.id,
+  }
+
+  if (!payload.skills_required || payload.skills_required.length === 0) {
+    payload.skills_required = ['General']
+  }
+
+  const {error} = await supabase.from('opportunities').insert(payload)
 
   if (error) {
     console.error('[Pathfinder] insert error:', error)
-    return { status: 'error', message: 'Failed to add. Please try again.' }
+    return {
+      status: 'error', message: 'Failed to add. Please try again.'
+    }
   }
 
   revalidatePath('/pathfinder')
-  return { status: 'success', message: 'Senior added successfully!' }
+  return {
+    status: 'success', message: 'Senior added successfully!'
+  }
 }
