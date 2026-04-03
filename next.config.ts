@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       allowedOrigins: [
-        'https://nexus-cs-psi.vercel.app',
+        'https://nexus-cse.vercel.app',
         'localhost:3000',
       ],
     },
