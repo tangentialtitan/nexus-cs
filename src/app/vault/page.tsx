@@ -61,11 +61,10 @@ export default function VaultPage() {
                         return (
                           <a key={course.code} href={course.link || '#'} target="_blank" rel="noreferrer" className={'rounded-2xl border p-5 hover:shadow-sm transition-all cursor-pointer ' + color}>
                             <div className="mb-3">
-                              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-current/30 bg-white/70 text-sm font-mono font-semibold">
-                                {'</>'}
+                              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-current/30 bg-white/70 text-xs font-semibold tracking-wide">
+                                {course.code}
                               </span>
                             </div>
-                            <h3 className="font-bold text-sm">{course.code}</h3>
                             <p className="text-xs mt-0.5 opacity-70">{course.name}</p>
                           </a>
                         )
