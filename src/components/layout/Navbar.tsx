@@ -28,7 +28,7 @@ export function Navbar() {
 
         {/* Logo */}
         <Link href="/dashboard" className="font-mono font-semibold text-slate-900 text-sm">
-          Nexus <span className="text-blue-600">·</span> AM
+          Nexus <span className="text-blue-600">·</span> CS
         </Link>
 
         {/* Links */}

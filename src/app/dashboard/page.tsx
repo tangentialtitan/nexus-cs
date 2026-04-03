@@ -92,18 +92,23 @@ const roleTitle = ROLE_TITLE[role] ?? ''
           <div className="bg-blue-600 rounded-2xl px-7 py-6 flex items-center justify-between">
             <div>
               <p className="text-blue-200 text-xs font-mono uppercase tracking-widest mb-1">
-                Nexus · AM Portal
+                Nexus · CS Portal
               </p>
               <h1 className="text-2xl font-bold text-white">
                 Hey, {firstName} 👋
               </h1>
               <p className="text-blue-200 text-sm mt-0.5">
-                B.Tech · Applied Mechanics · IIT Delhi
+                B.Tech · Computer Science & Engineering · IIT Delhi
               </p>
             </div>
             <div className="hidden sm:flex flex-col items-end gap-1 text-right">
               <span className="text-blue-200 text-xs font-mono">
-                {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })}
+                {new Date().toLocaleDateString('en-IN', {
+                  weekday: 'long',
+                  day: 'numeric',
+                  month: 'long',
+                  timeZone: 'Asia/Kolkata',
+                })}
               </span>
               {roleTitle && (
                 <span className="text-xs bg-white/20 text-white px-2.5 py-0.5 rounded-full font-mono">
@@ -175,6 +180,7 @@ const roleTitle = ROLE_TITLE[role] ?? ''
             {new Date(a.created_at).toLocaleDateString('en-IN', {
               day: 'numeric',
               month: 'short',
+              timeZone: 'Asia/Kolkata',
             })}
           </span>
         </div>

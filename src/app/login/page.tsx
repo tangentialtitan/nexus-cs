@@ -7,10 +7,15 @@ export default function LoginPage() {
   const supabase = createClient()
 
   async function signInWithGoogle() {
+    const origin =
+      typeof window !== 'undefined'
+        ? window.location.origin
+        : process.env.NEXT_PUBLIC_SITE_URL
+
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `https://nexus-am-one.vercel.app/auth/callback`,
+        redirectTo: `${origin}/auth/callback`,
       },
     })
   }

@@ -8,14 +8,14 @@ export default function LandingPage() {
       {/* Hero */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center">
         <div className="inline-block bg-blue-50 border border-blue-100 text-blue-600 text-xs font-mono px-3 py-1 rounded-full mb-6">
-          IIT Delhi · Engineering & Computational Mechanics
+          IIT Delhi · Computer Science Department
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 leading-tight">
           Your batch's<br />
           <span className="text-blue-600">single source of truth</span>
         </h1>
         <p className="text-slate-500 text-lg max-w-xl mb-10">
-          Resources, feedback, and senior contacts — all in one place, built by AM students for AM students.
+          Resources, feedback, and senior contacts — all in one place, built by Jay Shah, maintained by Abhinav P J.
         </p>
         <Link
           href="/login"
@@ -54,7 +54,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <div className="border-t border-slate-200 py-6 text-center text-xs text-slate-400 font-mono">
-        Nexus · IIT Delhi AM Department · Built by the batch, for the batch
+        Nexus · IIT Delhi CS Department · Built by the batch, for the batch
       </div>
 
     </main>
