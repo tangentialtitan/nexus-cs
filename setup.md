@@ -59,6 +59,7 @@ your environment or make it env-driven if needed:
 
 - [src/app/login/page.tsx](src/app/login/page.tsx#L13)
 
+
 ## 4) Align database schema (specifics)
 
 The TypeScript types live in src/types/database.ts. Your Supabase schema should match the checklist below.
