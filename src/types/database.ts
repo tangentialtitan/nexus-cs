@@ -1,168 +1,418 @@
-export type Json =|string|number|boolean|null|{[key: string]: Json}|Json[]
+export type Json =
+    |string|number|boolean|null|{[key: string]: Json | undefined}|Json[]
 
-    export type UserRole = 'student'|'convener'|'admin'|'committee'
-export type ResourceCategory =
-    |'PYQ'|'Lecture Notes'|'Lab Manual'|'Tutorial'|'Reference Book'|'Other'
-export type OpportunityType =|'Research Internship'|'Corporate Internship'|
-    'Full-Time Placement'|'Exchange Program'
-
-export interface Database {
-  public: {Tables: {profiles: {Row: {id: string
-  full_name: string
-  roll_number: string|null
-  entry_year: number|null
-  role: UserRole
-  avatar_url: string|null
-  created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id: string
-          full_name: string
-          roll_number?: string|null
-          entry_year?: number|null
-          role?: UserRole
-          avatar_url?: string | null
-        }
-        Update: Partial<Database['public']['Tables']['profiles']['Insert']>
-        Relationships: []
-      }
-      courses: {
-        Row: {
-          id: string
-          code: string
-          name: string
+    export type Database = {
+      // Allows to automatically instantiate createClient with right options
+      // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+      __InternalSupabase: {PostgrestVersion: '14.5'}
+      public: {Tables: {courses: {Row: {code: string
+created_at: string
+credits: number|null
+id: string
+is_active: boolean
+name: string
           semester: number
-          credits: number|null
-          is_active: boolean
-          created_at: string
         }
         Insert: {
           code: string
-          name: string
-          semester: number
+          created_at?: string
           credits?: number|null
+          id?: string
           is_active?: boolean
+          name: string
+          semester: number
         }
-        Update: Partial<Database['public']['Tables']['courses']['Insert']>
+        Update: {
+          code?: string
+          created_at?: string
+          credits?: number|null
+          id?: string
+          is_active?: boolean
+          name?: string
+          semester?: number
+        }
         Relationships: []
       }
       feedback: {
         Row: {
-          id: string
-          course_id: string
-          rating: number
-          stop_feedback: string|null
-          start_feedback: string|null
+          academic_year: string | null
           continue_feedback: string|null
-          week_number: number|null
-          academic_year: string|null
+          course_id: string
           created_at: string
+          id: string
+          rating: number
+          start_feedback: string|null
+          stop_feedback: string|null
+          week_number: number | null
         }
         Insert: {
-          course_id: string
-          rating: number
-          stop_feedback?: string|null
-          start_feedback?: string|null
-          continue_feedback?: string|null
-          week_number?: number|null
           academic_year?: string | null
+          continue_feedback?: string|null
+          course_id: string
+          created_at?: string
+          id?: string
+          rating: number
+          start_feedback?: string|null
+          stop_feedback?: string|null
+          week_number?: number | null
         }
-        Update: never
+        Update: {
+          academic_year?: string | null
+          continue_feedback?: string|null
+          course_id?: string
+          created_at?: string
+          id?: string
+          rating?: number
+          start_feedback?: string|null
+          stop_feedback?: string|null
+          week_number?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'feedback_course_id_fkey'
+          columns: ['course_id']
+          isOneToOne: false
+          referencedRelation: 'courses'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      opportunities: {
+        Row: {
+          added_by: string | null
+            application_link: string|null
+            company_or_uni: string
+            contact_email: string|null
+            contact_name: string|null
+            contact_roll: string|null
+            created_at: string
+            deadline: string|null
+            description: string|null
+            duration: string|null
+            id: string
+            is_active: boolean
+            location: string|null
+            role_title: string
+            skills_required: string[]
+            stipend: string|null
+            type: Database['public']['Enums']['opportunity_type']
+          updated_at: string
+        }
+        Insert: {
+          added_by?: string | null
+          application_link?: string|null
+          company_or_uni: string
+          contact_email?: string|null
+          contact_name?: string|null
+          contact_roll?: string|null
+          created_at?: string
+          deadline?: string|null
+          description?: string|null
+          duration?: string|null
+          id?: string
+          is_active?: boolean
+          location?: string|null
+          role_title: string
+          skills_required?: string[]
+          stipend?: string|null
+          type: Database['public']['Enums']['opportunity_type']
+          updated_at?: string
+        }
+        Update: {
+          added_by?: string | null
+          application_link?: string|null
+          company_or_uni?: string
+          contact_email?: string|null
+          contact_name?: string|null
+          contact_roll?: string|null
+          created_at?: string
+          deadline?: string|null
+          description?: string|null
+          duration?: string|null
+          id?: string
+          is_active?: boolean
+          location?: string|null
+          role_title?: string
+          skills_required?: string[]
+          stipend?: string|null
+          type?: Database['public']['Enums']['opportunity_type']
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'opportunities_added_by_fkey'
+          columns: ['added_by']
+          isOneToOne: false
+          referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+            created_at: string
+            entry_year: number|null
+            full_name: string
+            id: string
+            role: Database['public']['Enums']['user_role']
+            roll_number: string|null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          entry_year?: number|null
+          full_name: string
+          id?: string
+          role: Database['public']['Enums']['user_role']
+          roll_number?: string|null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          entry_year?: number|null
+          full_name?: string
+          id?: string
+          role?: Database['public']['Enums']['user_role']
+          roll_number?: string|null
+          updated_at?: string
+        }
         Relationships: []
       }
       resources: {
         Row: {
-          id: string
-        course_id: string
-        uploaded_by: string
-        category: ResourceCategory
-        title: string
-        description: string|null
-        storage_path: string
-        file_type: string
-        file_size_kb: number|null
-        download_count: number
-        is_approved: boolean
-        created_at: string
-          updated_at: string
-        }
-        Insert: {
+          category: Database['public']['Enums']['resource_category']
           course_id: string
-          uploaded_by: string
-          category: ResourceCategory
-          title: string
-          storage_path: string
-          file_type: string
-          description?: string|null
-          file_size_kb?: number | null
-        }
-        Update: Partial<Database['public']['Tables']['resources']['Insert']>
-        Relationships: []
-      }
-      opportunities: {
-        Row: {
-          id: string
-          type: OpportunityType
-          company_or_uni: string
-          role_title: string
-          location: string|null
-          stipend: string|null
-          duration: string|null
-          skills_required: string[]
-          description: string|null
-          application_link: string|null
-          contact_name: string|null
-          contact_roll: string|null
-          contact_email: string|null
-          is_active: boolean
-          deadline: string|null
-          added_by: string|null
           created_at: string
+          description: string|null
+          download_count: number
+          file_size_kb: number|null
+          file_type: string
+          id: string
+          is_approved: boolean
+          storage_path: string
+          title: string
           updated_at: string
+          uploaded_by: string
         }
         Insert: {
-          type: OpportunityType
-          company_or_uni: string
-          role_title: string
-          skills_required?: string[]
-          location?: string|null
-          stipend?: string|null
-          duration?: string|null
+          category: Database['public']['Enums']['resource_category']
+          course_id: string
+          created_at?: string
           description?: string|null
-          application_link?: string|null
-          contact_name?: string|null
-          contact_roll?: string|null
-          contact_email?: string|null
-          deadline?: string|null
-          added_by?: string | null
+          download_count?: number
+          file_size_kb?: number|null
+          file_type: string
+          id?: string
+          is_approved?: boolean
+          storage_path: string
+          title: string
+          updated_at?: string
+          uploaded_by: string
         }
-        Update: Partial<Database['public']['Tables']['opportunities']['Insert']>
-        Relationships: []
+        Update: {
+          category?: Database['public']['Enums']['resource_category']
+          course_id?: string
+          created_at?: string
+          description?: string|null
+          download_count?: number
+          file_size_kb?: number|null
+          file_type?: string
+          id?: string
+          is_approved?: boolean
+          storage_path?: string
+          title?: string
+          updated_at?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'resources_course_id_fkey'
+          columns: ['course_id']
+          isOneToOne: false
+          referencedRelation: 'courses'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'resources_uploaded_by_fkey'
+            columns: ['uploaded_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
       }
     }
     Views: {
       feedback_summary: {
         Row: {
-          course_code: string
-          course_name: string
-          semester: number
-          total_responses: number
-          avg_rating: number
-          positive_count: number
-          negative_count: number
+          avg_rating: number | null
+            course_code: string|null
+            course_name: string|null
+            negative_count: number|null
+            positive_count: number|null
+            semester: number|null
+          total_responses: number | null
         }
         Relationships: []
       }
     }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      opportunity_type:
+        | 'Research Internship'
+        | 'Corporate Internship'
+        | 'Full-Time Placement'
+        | 'Exchange Program'
+          resource_category:|'PYQ'|'Lecture Notes'|'Lab Manual'|'Tutorial'|
+              'Reference Book'|'Other'
+      user_role: 'student' | 'convener' | 'admin' | 'committee'
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
   }
 }
 
-export type Profile = Database['public']['Tables']['profiles']['Row'];
-export type Course = Database['public']['Tables']['courses']['Row'];
-export type Feedback = Database['public']['Tables']['feedback']['Row'];
-export type FeedbackInsert = Database['public']['Tables']['feedback']['Insert'];
-export type Resource = Database['public']['Tables']['resources']['Row'];
-export type Opportunity = Database['public']['Tables']['opportunities']['Row'];
-export type FeedbackSummary =
-    Database['public']['Views']['feedback_summary']['Row'];
+type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
+
+export type Tables<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] &
+        DefaultSchema['Views'])
+    ? (DefaultSchema['Tables'] &
+        DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
+    : never
+
+      export type TablesInsert<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema['Tables']
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
+    : never
+
+      export type TablesUpdate<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema['Tables']
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
+    : never
+
+      export type Enums<
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema['Enums']
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
+    : never = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
+    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
+    : never
+
+      export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof DefaultSchema['CompositeTypes']
+    | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
+    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
+    : never
+
+      export const Constants = {
+        public: {
+          Enums: {
+            opportunity_type: [
+              'Research Internship',
+              'Corporate Internship',
+              'Full-Time Placement',
+              'Exchange Program',
+            ],
+            resource_category: [
+              'PYQ',
+              'Lecture Notes',
+              'Lab Manual',
+              'Tutorial',
+              'Reference Book',
+              'Other',
+            ],
+            user_role: ['student', 'convener', 'admin', 'committee'],
+          },
+        },
+      } as const
