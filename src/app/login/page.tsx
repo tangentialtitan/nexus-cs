@@ -37,7 +37,7 @@ export default function LoginPage() {
             <span className="text-white font-bold font-mono text-xl">N</span>
           </div>
           <h1 className="text-xl font-bold text-white">Nexus</h1>
-          <p className="text-sm text-slate-400 mt-1">AM Department · IIT Delhi</p>
+          <p className="text-sm text-slate-400 mt-1">CS Department · IIT Delhi</p>
         </div>
 
         {/* Divider */}
