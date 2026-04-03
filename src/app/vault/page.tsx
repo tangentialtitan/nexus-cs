@@ -9,7 +9,7 @@ const ACADEMICS = [
       { code: 'AK', name: 'Asmit Karmakar', link: 'http://10.17.3.50:8080/' },
       { code: 'CM', name: 'Chinmay Mittal', link: 'https://github.com/ChinmayMittal' },
       { code: 'YA', name: 'Yash Aggarwal', link: 'https://wwwg1-my.sharepoint.com/:f:/g/personal/iitd_wwwg1_onmicrosoft_com/Etf4-KIvGTpOhn5NfhQOywwBeY1p0faOvUxLrLjHuYCFqw?e=fctZPD' },
-      { code: 'HA', name: 'Har Ashish Arora', link: 'https://wwwg1-my.sharepoint.com/personal/iitd_wwwg1_onmicrosoft_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fiitd_wwwg1_onmicrosoft_com%2FDocuments%2FHar%20Ashish%201st%20Year%202024%20Backup&ga=1' },
+      { code: 'HA', name: 'Har Ashish Arora', link: 'https://csciitd-my.sharepoint.com/personal/cs1240904_iitd_ac_in/_layouts/15/onedrive.aspx?ga=1' },
       { code: 'AR', name: 'Academic Resources', link: 'https://drive.google.com/drive/folders/1wPMQpfA0Iy-r4AW3Foq2mLarRoglPrRS' },
     ]
   }
