@@ -16,10 +16,17 @@ export async function GET(request: Request) {
       const fallbackName = email ? email.split('@')[0] : 'New User'
       const fullName = metadata.full_name || metadata.name || metadata.display_name || fallbackName
 
-      // 2. Use ADMIN client to bypass RLS and force the profile creation
-      const supabaseAdmin = await createAdminClient()
-      
-      const { error: profileError } = await supabaseAdmin.from('profiles')
+      // Use admin client only when service role key is configured.
+      // Otherwise, fall back to regular client and log the write error.
+      const profileClient = process.env.SUPABASE_SERVICE_ROLE_KEY
+        ? await createAdminClient()
+        : supabase
+
+      if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        console.error('SUPABASE_SERVICE_ROLE_KEY is not set. Falling back to anon client for profile upsert.')
+      }
+
+      const { error: profileError } = await profileClient.from('profiles')
         .upsert(
           {
             id: data.user.id,
