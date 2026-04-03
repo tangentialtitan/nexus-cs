@@ -6,12 +6,11 @@ const ACADEMICS = [
   {
     sem: 4,
     courses: [
-      { code: 'APL103', name: 'Mechanics of Solids', link: '' },
-      { code: 'APL109', name: 'Dynamics', link: '' },
-      { code: 'APL206', name: 'Fluid Mechanics', link: '' },
-      { code: 'COL106', name: 'Data Structures', link: '' },
-      { code: 'CVL100', name: 'Civil Engineering', link: '' },
-      { code: 'ELL201', name: 'Electrical Engineering', link: '' },
+      { code: 'AK', name: 'Asmit Karmakar', link: 'http://10.17.3.50:8080/' },
+      { code: 'CM', name: 'Chinmay Mittal', link: 'https://github.com/ChinmayMittal' },
+      { code: 'YA', name: 'Yash Aggarwal', link: 'https://wwwg1-my.sharepoint.com/:f:/g/personal/iitd_wwwg1_onmicrosoft_com/Etf4-KIvGTpOhn5NfhQOywwBeY1p0faOvUxLrLjHuYCFqw?e=fctZPD' },
+      { code: 'HA', name: 'Har Ashish Arora', link: 'https://wwwg1-my.sharepoint.com/:f:/g/personal/iitd_wwwg1_onmicrosoft_com/Etf4-KIvGTpOhn5NfhQOywwBeY1p0faOvUxLrLjHuYCFqw?e=fctZPD' },
+      { code: 'AR', name: 'Academic Resources', link: 'https://drive.google.com/drive/folders/1wPMQpfA0Iy-r4AW3Foq2mLarRoglPrRS' },
     ]
   }
 ]
@@ -27,12 +26,11 @@ const INTERN_RESOURCES = [
 ]
 
 const COURSE_COLORS: Record<string, string> = {
-  'APL103': 'bg-blue-50 text-blue-700 border-blue-200',
-  'APL109': 'bg-violet-50 text-violet-700 border-violet-200',
-  'APL206': 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  'COL106': 'bg-orange-50 text-orange-700 border-orange-200',
-  'CVL100': 'bg-pink-50 text-pink-700 border-pink-200',
-  'ELL201': 'bg-yellow-50 text-yellow-700 border-yellow-200',
+  'AK': 'bg-blue-50 text-blue-700 border-blue-200',
+  'CM': 'bg-violet-50 text-violet-700 border-violet-200',
+  'YA': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  'HA': 'bg-orange-50 text-orange-700 border-orange-200',
+  'AR': 'bg-pink-50 text-pink-700 border-pink-200',
 }
 
 export default function VaultPage() {
