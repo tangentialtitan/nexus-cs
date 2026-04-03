@@ -52,7 +52,7 @@ export default function AddAnnouncementPage() {
       } as any)
 
     if (error) {
-      setError('Failed to post. Make sure you are the Class Convener.')
+      setError('Failed to post. Make sure you have the required permissions.')
       setLoading(false)
       return
     }
