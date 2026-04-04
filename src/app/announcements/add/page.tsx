@@ -11,7 +11,6 @@ export default function AddAnnouncementPage() {
   const [title, setTitle] = useState('')
   const [eventDate, setEventDate] = useState('')
   const [description, setDescription] = useState('')
-  const [authorName, setAuthorName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -21,13 +20,30 @@ export default function AddAnnouncementPage() {
     setError('')
 
     const { data: { session } } = await supabase.auth.getSession()
+    if (!session) {
+      setError('You must be signed in to post an announcement.')
+      setLoading(false)
+      return
+    }
+
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('full_name')
+      .eq('id', session.user.id)
+      .single()
+
+    if (profileError || !profile?.full_name?.trim()) {
+      setError('Could not fetch your profile name. Please update your profile and try again.')
+      setLoading(false)
+      return
+    }
 
     const payload: AnnouncementInsert = {
       title: title.trim(),
       event_date: eventDate || null,
       description: description.trim(),
-      author_name: authorName.trim(),
-      added_by: session?.user?.id ?? null,
+      author_name: profile.full_name.trim(),
+      added_by: session.user.id,
     }
 
     const { error } = await supabase
@@ -72,19 +88,6 @@ export default function AddAnnouncementPage() {
               type="date"
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
-              className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
-            />
-          </div>
-
-          <div>
-            <label className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-1.5">
-              Author Name *
-            </label>
-            <input
-              required
-              value={authorName}
-              onChange={(e) => setAuthorName(e.target.value)}
-              placeholder="e.g. Riya Sharma"
               className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
             />
           </div>
