@@ -161,126 +161,168 @@
     "column_default": null
   },
   {
-    "table_name": "opportunities",
+    "table_name": "announcements",
     "column_name": "id",
     "data_type": "uuid",
     "is_nullable": "NO",
     "column_default": "gen_random_uuid()"
   },
   {
-    "table_name": "opportunities",
-    "column_name": "type",
-    "data_type": "USER-DEFINED",
-    "is_nullable": "NO",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "company_or_uni",
+    "table_name": "announcements",
+    "column_name": "title",
     "data_type": "text",
     "is_nullable": "NO",
     "column_default": null
   },
   {
-    "table_name": "opportunities",
-    "column_name": "role_title",
-    "data_type": "text",
-    "is_nullable": "NO",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "location",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "stipend",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "duration",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "skills_required",
-    "data_type": "ARRAY",
-    "is_nullable": "NO",
-    "column_default": "'{}'::text[]"
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "description",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "application_link",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "contact_name",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "contact_roll",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "contact_email",
-    "data_type": "text",
-    "is_nullable": "YES",
-    "column_default": null
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "is_active",
-    "data_type": "boolean",
-    "is_nullable": "NO",
-    "column_default": "true"
-  },
-  {
-    "table_name": "opportunities",
-    "column_name": "deadline",
+    "table_name": "announcements",
+    "column_name": "event_date",
     "data_type": "date",
     "is_nullable": "YES",
     "column_default": null
   },
   {
-    "table_name": "opportunities",
+    "table_name": "announcements",
+    "column_name": "description",
+    "data_type": "text",
+    "is_nullable": "NO",
+    "column_default": null
+  },
+  {
+    "table_name": "announcements",
+    "column_name": "author_name",
+    "data_type": "text",
+    "is_nullable": "NO",
+    "column_default": null
+  },
+  {
+    "table_name": "announcements",
     "column_name": "added_by",
     "data_type": "uuid",
     "is_nullable": "YES",
     "column_default": null
   },
   {
-    "table_name": "opportunities",
+    "table_name": "announcements",
     "column_name": "created_at",
     "data_type": "timestamp with time zone",
     "is_nullable": "NO",
     "column_default": "now()"
   },
   {
-    "table_name": "opportunities",
+    "table_name": "announcements",
+    "column_name": "updated_at",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO",
+    "column_default": "now()"
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "id",
+    "data_type": "uuid",
+    "is_nullable": "NO",
+    "column_default": "gen_random_uuid()"
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "type",
+    "data_type": "USER-DEFINED",
+    "is_nullable": "NO",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "company_or_uni",
+    "data_type": "text",
+    "is_nullable": "NO",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "role_title",
+    "data_type": "text",
+    "is_nullable": "NO",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "location",
+    "data_type": "text",
+    "is_nullable": "YES",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "stipend",
+    "data_type": "text",
+    "is_nullable": "YES",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "duration",
+    "data_type": "text",
+    "is_nullable": "YES",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "skills_required",
+    "data_type": "ARRAY",
+    "is_nullable": "NO",
+    "column_default": "'{}'::text[]"
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "description",
+    "data_type": "text",
+    "is_nullable": "YES",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "application_link",
+    "data_type": "text",
+    "is_nullable": "YES",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "contact_name",
+    "data_type": "text",
+    "is_nullable": "YES",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "contact_roll",
+    "data_type": "text",
+    "is_nullable": "YES",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "contact_email",
+    "data_type": "text",
+    "is_nullable": "YES",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "added_by",
+    "data_type": "uuid",
+    "is_nullable": "YES",
+    "column_default": null
+  },
+  {
+    "table_name": "seniors",
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone",
+    "is_nullable": "NO",
+    "column_default": "now()"
+  },
+  {
+    "table_name": "seniors",
     "column_name": "updated_at",
     "data_type": "timestamp with time zone",
     "is_nullable": "NO",

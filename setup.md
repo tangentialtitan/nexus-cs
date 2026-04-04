@@ -123,7 +123,18 @@ resources
 - created_at timestamptz not null default now()
 - updated_at timestamptz not null default now()
 
-opportunities
+announcements
+
+- id uuid primary key
+- title text not null
+- event_date date null
+- description text not null
+- author_name text not null
+- added_by uuid null references profiles(id)
+- created_at timestamptz not null default now()
+- updated_at timestamptz not null default now()
+
+seniors
 
 - id uuid primary key
 - type opportunity_type not null
@@ -138,8 +149,6 @@ opportunities
 - contact_name text null
 - contact_roll text null
 - contact_email text null
-- is_active boolean not null default true
-- deadline date null
 - added_by uuid null references profiles(id)
 - created_at timestamptz not null default now()
 - updated_at timestamptz not null default now()
@@ -213,7 +222,18 @@ create table resources (
   updated_at timestamptz not null default now()
 );
 
-create table opportunities (
+create table announcements (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  event_date date,
+  description text not null,
+  author_name text not null,
+  added_by uuid references profiles(id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table seniors (
   id uuid primary key default gen_random_uuid(),
   type opportunity_type not null,
   company_or_uni text not null,
@@ -227,8 +247,6 @@ create table opportunities (
   contact_name text,
   contact_roll text,
   contact_email text,
-  is_active boolean not null default true,
-  deadline date,
   added_by uuid references profiles(id),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

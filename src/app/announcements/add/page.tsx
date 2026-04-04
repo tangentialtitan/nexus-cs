@@ -3,16 +3,15 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
-import type { OpportunityInsert } from '@/types/database'
+import type { AnnouncementInsert } from '@/types/database'
 
 export default function AddAnnouncementPage() {
   const supabase = createClient()
   const router = useRouter()
-  const [type, setType] = useState<OpportunityInsert['type']>('Corporate Internship')
-  const [companyOrUni, setCompanyOrUni] = useState('')
-  const [roleTitle, setRoleTitle] = useState('')
+  const [title, setTitle] = useState('')
+  const [eventDate, setEventDate] = useState('')
   const [description, setDescription] = useState('')
-  const [skillsRequired, setSkillsRequired] = useState('')
+  const [authorName, setAuthorName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -21,25 +20,22 @@ export default function AddAnnouncementPage() {
     setLoading(true)
     setError('')
 
-    const parsedSkills = skillsRequired
-      .split(',')
-      .map((skill) => skill.trim())
-      .filter(Boolean)
+    const { data: { session } } = await supabase.auth.getSession()
 
-    const payload: OpportunityInsert = {
-      type,
-      company_or_uni: companyOrUni,
-      role_title: roleTitle,
-      description: description.trim() || null,
-      skills_required: parsedSkills.length > 0 ? parsedSkills : ['General'],
+    const payload: AnnouncementInsert = {
+      title: title.trim(),
+      event_date: eventDate || null,
+      description: description.trim(),
+      author_name: authorName.trim(),
+      added_by: session?.user?.id ?? null,
     }
 
     const { error } = await supabase
-      .from('opportunities')
+      .from('announcements')
       .insert(payload)
 
     if (error) {
-      setError('Failed to post. Make sure you have the required permissions.')
+      setError('Failed to post announcement. Make sure you have the required permissions.')
       setLoading(false)
       return
     }
@@ -50,75 +46,58 @@ export default function AddAnnouncementPage() {
   return (
     <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
       <div className="bg-white border border-slate-200 rounded-2xl p-8 w-full max-w-lg">
-        <h1 className="text-xl font-bold text-slate-900 mb-1">Add Opportunity</h1>
-        <p className="text-sm text-slate-400 mb-6">Share internships, placements, and programs with the batch.</p>
+        <h1 className="text-xl font-bold text-slate-900 mb-1">Add Announcement</h1>
+        <p className="text-sm text-slate-400 mb-6">Post updates for everyone in your batch.</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
 
           <div>
             <label className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-1.5">
-              Opportunity Type *
-            </label>
-            <select
-              required
-              value={type}
-              onChange={(e) => setType(e.target.value as OpportunityInsert['type'])}
-              className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
-            >
-              <option value="Research Internship">Research Internship</option>
-              <option value="Corporate Internship">Corporate Internship</option>
-              <option value="Full-Time Placement">Full-Time Placement</option>
-              <option value="Exchange Program">Exchange Program</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-1.5">
-              Company / University *
+              Title *
             </label>
             <input
               required
-              value={companyOrUni}
-              onChange={(e) => setCompanyOrUni(e.target.value)}
-              placeholder="e.g. Google, IITD, EPFL"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="e.g. Midsem timetable released"
               className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
             />
           </div>
 
           <div>
             <label className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-1.5">
-              Role Title *
+              Date (Optional)
             </label>
             <input
-              required
-              value={roleTitle}
-              onChange={(e) => setRoleTitle(e.target.value)}
-              placeholder="e.g. SDE Intern"
+              type="date"
+              value={eventDate}
+              onChange={(e) => setEventDate(e.target.value)}
               className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
             />
           </div>
 
           <div>
             <label className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-1.5">
-              Skills Required *
+              Author Name *
             </label>
             <input
               required
-              value={skillsRequired}
-              onChange={(e) => setSkillsRequired(e.target.value)}
-              placeholder="e.g. DSA, SQL, React"
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
+              placeholder="e.g. Riya Sharma"
               className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
             />
           </div>
 
           <div>
             <label className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-1.5">
-              Description
+              Description *
             </label>
             <textarea
+              required
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Optional details for students"
+              placeholder="Write details for students"
               rows={4}
               className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
             />
@@ -143,7 +122,7 @@ export default function AddAnnouncementPage() {
               disabled={loading}
               className="flex-1 bg-blue-600 text-white text-sm font-medium py-2.5 rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-40"
             >
-              {loading ? 'Saving…' : 'Save Opportunity'}
+              {loading ? 'Saving…' : 'Save Announcement'}
             </button>
           </div>
         </form>

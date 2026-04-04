@@ -2,7 +2,7 @@
 
 import{createClient} from '@/lib/supabase/server'
 import{revalidatePath} from 'next/cache'
-import type{OpportunityInsert} from '@/types/database'
+import type{SeniorInsert} from '@/types/database'
 
 export type SeniorFormState = {
   status: 'idle'|'success'|'error'
@@ -13,7 +13,7 @@ export async function getSeniors() {
   const supabase = await createClient()
 
   const {data, error} =
-      await supabase.from('opportunities').select('*').order('created_at', {
+      await supabase.from('seniors').select('*').order('created_at', {
         ascending: false
       })
 
@@ -37,8 +37,8 @@ export async function addSenior(
                              .map((skill) => skill.trim())
                              .filter(Boolean)
 
-  const payload: OpportunityInsert = {
-    type: formData.get('type') as OpportunityInsert['type'],
+  const payload: SeniorInsert = {
+    type: formData.get('type') as SeniorInsert['type'],
     company_or_uni: formData.get('company_or_uni') as string,
     role_title: formData.get('role_title') as string,
     location: (formData.get('location') as string)?.trim() || null,
@@ -58,7 +58,7 @@ export async function addSenior(
     payload.skills_required = ['General']
   }
 
-  const {error} = await supabase.from('opportunities').insert(payload)
+  const {error} = await supabase.from('seniors').insert(payload)
 
   if (error) {
     console.error('[Pathfinder] insert error:', error)

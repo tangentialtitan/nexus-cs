@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      announcements: {
+        Row: {
+          added_by: string | null
+          author_name: string
+          created_at: string
+          description: string
+          event_date: string | null
+          id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          added_by?: string | null
+          author_name: string
+          created_at?: string
+          description: string
+          event_date?: string | null
+          id?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          added_by?: string | null
+          author_name?: string
+          created_at?: string
+          description?: string
+          event_date?: string | null
+          id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "announcements_added_by_fkey"
+            columns: ["added_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
           code: string
@@ -255,6 +296,71 @@ export type Database = {
           },
         ]
       }
+      seniors: {
+        Row: {
+          added_by: string | null
+          application_link: string | null
+          company_or_uni: string
+          contact_email: string | null
+          contact_name: string | null
+          contact_roll: string | null
+          created_at: string
+          description: string | null
+          duration: string | null
+          id: string
+          location: string | null
+          role_title: string
+          skills_required: string[]
+          stipend: string | null
+          type: Database["public"]["Enums"]["opportunity_type"]
+          updated_at: string
+        }
+        Insert: {
+          added_by?: string | null
+          application_link?: string | null
+          company_or_uni: string
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_roll?: string | null
+          created_at?: string
+          description?: string | null
+          duration?: string | null
+          id?: string
+          location?: string | null
+          role_title: string
+          skills_required?: string[]
+          stipend?: string | null
+          type: Database["public"]["Enums"]["opportunity_type"]
+          updated_at?: string
+        }
+        Update: {
+          added_by?: string | null
+          application_link?: string | null
+          company_or_uni?: string
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_roll?: string | null
+          created_at?: string
+          description?: string | null
+          duration?: string | null
+          id?: string
+          location?: string | null
+          role_title?: string
+          skills_required?: string[]
+          stipend?: string | null
+          type?: Database["public"]["Enums"]["opportunity_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seniors_added_by_fkey"
+            columns: ["added_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       feedback_summary: {
@@ -435,6 +541,10 @@ export const Constants = {
 
 export type Course = Tables<'courses'>
 export type FeedbackInsert = TablesInsert<'feedback'>
+export type AnnouncementRow = Tables<'announcements'>
+export type AnnouncementInsert = TablesInsert<'announcements'>
 export type OpportunityRow = Tables<'opportunities'>
 export type OpportunityInsert = TablesInsert<'opportunities'>
+export type SeniorRow = Tables<'seniors'>
+export type SeniorInsert = TablesInsert<'seniors'>
 export type UserRole = Enums<'user_role'>

@@ -3,6 +3,29 @@
   import { Navbar } from '@/components/layout/Navbar'
   import Link from 'next/link'
 
+  function getIstDayRange(referenceDate = new Date()) {
+    const istOffsetMs = 5.5 * 60 * 60 * 1000
+    const shifted = new Date(referenceDate.getTime() + istOffsetMs)
+
+    const startShiftedUtc = Date.UTC(
+      shifted.getUTCFullYear(),
+      shifted.getUTCMonth(),
+      shifted.getUTCDate(),
+      0,
+      0,
+      0,
+      0
+    )
+
+    const startUtcMs = startShiftedUtc - istOffsetMs
+    const endUtcMs = startUtcMs + 24 * 60 * 60 * 1000
+
+    return {
+      startIso: new Date(startUtcMs).toISOString(),
+      endIso: new Date(endUtcMs).toISOString(),
+    }
+  }
+
   export default async function DashboardPage() {
     const supabase = await createClient()
 
@@ -15,19 +38,27 @@
       .eq('id', session.user.id)
       .single()
 
+    const { startIso, endIso } = getIstDayRange()
+
     const [
       // { count: feedbackCount },
       // { count: seniorCount },
-      { data: opportunities },
+      { data: announcements },
+      { count: todayAnnouncementCount },
     ] = await Promise.all([
       // supabase.from('feedback').select('*', { count: 'exact', head: true }),
-      // supabase.from('opportunities').select('*', { count: 'exact', head: true }),
+      // supabase.from('announcements').select('*', { count: 'exact', head: true }),
       supabase
-    .from('opportunities')
-    .select('id, type, company_or_uni, role_title, description, created_at')
-    .eq('is_active', true)
-    .order('created_at', { ascending: false })
-    .limit(10),
+        .from('announcements')
+        .select('id, title, event_date, description, author_name, created_at')
+        .order('event_date', { ascending: true, nullsFirst: false })
+        .order('created_at', { ascending: true })
+        .limit(10),
+      supabase
+        .from('announcements')
+        .select('*', { count: 'exact', head: true })
+        .gte('created_at', startIso)
+        .lt('created_at', endIso),
     ])
 
     const firstName = (profile as any)?.full_name?.split(' ')[0] ?? 'Engineer'
@@ -137,15 +168,18 @@ const roleTitle = ROLE_TITLE[role] ?? ''
           {/* Main Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            {/* Left — Opportunities */}
+            {/* Left — Announcements */}
             <div className="lg:col-span-2">
               <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
                 <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="text-base">📢</span>
                     <h2 className="text-xs font-mono text-slate-400 uppercase tracking-widest">
-                        Opportunities
+                        Announcements
                     </h2>
+                    <span className="text-[10px] font-mono bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full">
+                      Today: {todayAnnouncementCount ?? 0}
+                    </span>
                   </div>
                   {isConvener && (
                     <Link
@@ -158,33 +192,51 @@ const roleTitle = ROLE_TITLE[role] ?? ''
                 </div>
 
                 <div className="divide-y divide-slate-50">
-                    {opportunities && opportunities.length > 0 ? (
-      opportunities.map((a: any) => (
+                    {announcements && announcements.length > 0 ? (
+      announcements.map((a: any) => (
       <div key={a.id} className="px-5 py-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
-                <span className="text-[10px] font-mono bg-blue-50 text-blue-600 border border-blue-100 px-2 py-0.5 rounded-full">
-                  {a.type}
+            <div className="flex items-center gap-2 mb-1.5">
+                {a.event_date && (
+                <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-100 px-2 py-0.5 rounded-full">
+                  Event: {new Date(a.event_date).toLocaleDateString('en-IN', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                    timeZone: 'Asia/Kolkata',
+                  })}
                 </span>
+                )}
             </div>
-              <h3 className="font-semibold text-slate-900 text-sm">{a.role_title}</h3>
-              <p className="text-xs text-slate-400 font-mono mt-1">{a.company_or_uni}</p>
+              <h3 className="font-semibold text-slate-900 text-sm">{a.title}</h3>
+              <p className="text-xs text-slate-400 font-mono mt-1">By {a.author_name}</p>
               {a.description && <p className="text-sm text-slate-500 mt-2 leading-relaxed">{a.description}</p>}
           </div>
-          <span className="text-[10px] text-slate-300 font-mono flex-shrink-0 mt-0.5">
-            {new Date(a.created_at).toLocaleDateString('en-IN', {
-              day: 'numeric',
-              month: 'short',
-              timeZone: 'Asia/Kolkata',
-            })}
-          </span>
+          <div className="text-right flex-shrink-0 mt-0.5 space-y-1">
+            <p className="text-[10px] text-slate-300 font-mono">
+              {new Date(a.created_at).toLocaleDateString('en-IN', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                timeZone: 'Asia/Kolkata',
+              })}
+            </p>
+            <p className="text-[10px] text-slate-300 font-mono">
+              {new Date(a.created_at).toLocaleTimeString('en-IN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'Asia/Kolkata',
+              })}
+            </p>
+          </div>
         </div>
       </div>
     ))) : (
                     <div className="px-5 py-14 text-center">
                       <p className="text-2xl mb-2">📭</p>
-                      <p className="text-sm text-slate-400">No opportunities yet.</p>
+                      <p className="text-sm text-slate-400">No announcements yet.</p>
                       {isConvener && (
                         <Link
                           href="/announcements/add"
