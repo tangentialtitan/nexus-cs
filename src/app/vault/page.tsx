@@ -33,6 +33,8 @@ const COURSE_COLORS: Record<string, string> = {
   'YA': 'bg-emerald-50 text-emerald-700 border-emerald-200',
   'HA': 'bg-orange-50 text-orange-700 border-orange-200',
   'AR': 'bg-pink-50 text-pink-700 border-pink-200',
+  'DE': 'bg-green-50 text-green-700 border-green-200',
+  'HU': 'bg-yellow-50 text-yellow-700 border-yellow-200',
 }
 
 export default function VaultPage() {
