@@ -11,6 +11,8 @@ const ACADEMICS = [
       { code: 'YA', name: 'Yash Aggarwal', link: 'https://wwwg1-my.sharepoint.com/:f:/g/personal/iitd_wwwg1_onmicrosoft_com/Etf4-KIvGTpOhn5NfhQOywwBeY1p0faOvUxLrLjHuYCFqw?e=fctZPD' },
       { code: 'HA', name: 'Har Ashish Arora', link: 'https://csciitd-my.sharepoint.com/personal/cs1240904_iitd_ac_in/_layouts/15/onedrive.aspx?ga=1' },
       { code: 'AR', name: 'Academic Resources', link: 'https://drive.google.com/drive/folders/1wPMQpfA0Iy-r4AW3Foq2mLarRoglPrRS' },
+      { code: 'DE', name: 'DE Reviews', link: 'https://docs.google.com/spreadsheets/d/151JDj4JJglq-V0tNdU3jOvYux0-WSRn0ExfZYrmEVeo/edit?gid=0#gid=0' }
+      {code: 'HU', name: 'HUL Reviews',link:'https://docs.google.com/spreadsheets/d/15EjLX3WTlJa_MASjmB7QLaSjCeY2yFhw1GHx4c-qFMI/edit?gid=1233837036#gid=1233837036' }
     ]
   }
 ]

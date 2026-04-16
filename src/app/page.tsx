@@ -8,7 +8,7 @@ export default function LandingPage() {
       {/* Hero */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center">
         <div className="inline-block bg-blue-50 border border-blue-100 text-blue-600 text-xs font-mono px-3 py-1 rounded-full mb-6">
-          IIT Delhi · Computer Science Department
+          IIT Delhi · Computer Science 
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 leading-tight">
           Your batch's<br />
