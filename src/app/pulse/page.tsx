@@ -58,20 +58,25 @@ export default async function PulsePage() {
                   </span>
                 </div>
                 <div className="px-5 py-4 space-y-3">
-                 {(summary as Tables<'feedback_summary'>[]).map((s) => (
+                 {(summary as Tables<'feedback_summary'>[]).map((s) => {
+                    const avgRating = s.avg_rating ?? 0
+                    const widthPercent = Math.max(0, Math.min((avgRating / 5) * 100, 100))
+
+                    return (
                     <div key={s.course_code} className="space-y-1">
                       <div className="flex items-center justify-between text-xs">
                         <span className="font-mono text-blue-600 font-medium">{s.course_code}</span>
-                        <span className="text-slate-500">{s.total_responses} resp · {Number(s.avg_rating).toFixed(1)}/5</span>
+                        <span className="text-slate-500">{s.total_responses} resp · {avgRating.toFixed(1)}/5</span>
                       </div>
                       <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-blue-500 rounded-full transition-all duration-700"
-                          style={{ width: `${(s.avg_rating / 5) * 100}%` }}
+                          style={{ width: `${widthPercent}%` }}
                         />
                       </div>
                     </div>
-                  ))}
+                    )
+                  })}
                 </div>
               </div>
             )}
