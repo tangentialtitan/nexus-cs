@@ -1,5 +1,16 @@
-create type issue_status as enum ('open', 'seen', 'resolved');
-create type issue_sender_type as enum ('student', 'convener');
+do $$
+begin
+  if not exists (select 1 from pg_type where typname = 'issue_status') then
+    create type issue_status as enum ('open', 'seen', 'resolved');
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (select 1 from pg_type where typname = 'issue_sender_type') then
+    create type issue_sender_type as enum ('student', 'convener');
+  end if;
+end $$;
 
 alter table feedback
   add column if not exists issue_code text,

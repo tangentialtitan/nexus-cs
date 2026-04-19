@@ -13,6 +13,7 @@ const ACADEMICS = [
       { code: 'AR', name: 'Academic Resources', link: 'https://drive.google.com/drive/folders/1wPMQpfA0Iy-r4AW3Foq2mLarRoglPrRS' },
       { code: 'DE', name: 'DE Reviews', link: 'https://docs.google.com/spreadsheets/d/151JDj4JJglq-V0tNdU3jOvYux0-WSRn0ExfZYrmEVeo/edit?gid=0#gid=0' },
       {code: 'HU', name: 'HUL Reviews',link:'https://docs.google.com/spreadsheets/d/15EjLX3WTlJa_MASjmB7QLaSjCeY2yFhw1GHx4c-qFMI/edit?gid=1233837036#gid=1233837036' },
+      { code: 'VE', name: 'Videep Ekbote', link: 'https://videepekbote.github.io/' },
     ]
   }
 ]
@@ -35,6 +36,7 @@ const COURSE_COLORS: Record<string, string> = {
   'AR': 'bg-pink-50 text-pink-700 border-pink-200',
   'DE': 'bg-green-50 text-green-700 border-green-200',
   'HU': 'bg-yellow-50 text-yellow-700 border-yellow-200',
+  'VE': 'bg-cyan-50 text-cyan-700 border-cyan-200',
 }
 
 export default function VaultPage() {
