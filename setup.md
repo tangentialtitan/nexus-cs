@@ -71,6 +71,8 @@ Create these enums:
 - user_role: student, convener, admin, committee
 - resource_category: PYQ, Lecture Notes, Lab Manual, Tutorial, Reference Book, Other
 - opportunity_type: Research Internship, Corporate Internship, Full-Time Placement, Exchange Program
+- issue_status: open, seen, resolved
+- issue_sender_type: student, convener
 
 ### Tables
 
@@ -105,6 +107,29 @@ feedback
 - continue_feedback text null
 - week_number integer null
 - academic_year text null
+- created_at timestamptz not null default now()
+
+issues
+
+- id uuid primary key
+- issue_code text not null unique
+- course_id uuid not null references courses(id)
+- rating integer not null
+- stop_feedback text null
+- start_feedback text null
+- continue_feedback text null
+- week_number integer null
+- academic_year text null
+- status issue_status not null default open
+- created_at timestamptz not null default now()
+- updated_at timestamptz not null default now()
+
+issue_messages
+
+- id uuid primary key
+- issue_id uuid not null references issues(id) on delete cascade
+- sender_type issue_sender_type not null
+- message text not null
 - created_at timestamptz not null default now()
 
 resources
@@ -172,6 +197,8 @@ create extension if not exists pgcrypto;
 create type user_role as enum ('student', 'convener', 'admin', 'committee');
 create type resource_category as enum ('PYQ', 'Lecture Notes', 'Lab Manual', 'Tutorial', 'Reference Book', 'Other');
 create type opportunity_type as enum ('Research Internship', 'Corporate Internship', 'Full-Time Placement', 'Exchange Program');
+create type issue_status as enum ('open', 'seen', 'resolved');
+create type issue_sender_type as enum ('student', 'convener');
 
 create table profiles (
   id uuid primary key default gen_random_uuid(),
@@ -205,6 +232,34 @@ create table feedback (
   academic_year text,
   created_at timestamptz not null default now()
 );
+
+create table issues (
+  id uuid primary key default gen_random_uuid(),
+  issue_code text not null unique,
+  course_id uuid not null references courses(id),
+  rating integer not null,
+  stop_feedback text,
+  start_feedback text,
+  continue_feedback text,
+  week_number integer,
+  academic_year text,
+  status issue_status not null default 'open',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index idx_issues_issue_code on issues(issue_code);
+create index idx_issues_status_updated_at on issues(status, updated_at desc);
+
+create table issue_messages (
+  id uuid primary key default gen_random_uuid(),
+  issue_id uuid not null references issues(id) on delete cascade,
+  sender_type issue_sender_type not null,
+  message text not null,
+  created_at timestamptz not null default now()
+);
+
+create index idx_issue_messages_issue_id_created_at on issue_messages(issue_id, created_at asc);
 
 create table resources (
   id uuid primary key default gen_random_uuid(),
