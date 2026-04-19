@@ -92,82 +92,6 @@ export type Database = {
           course_id: string
           created_at: string
           id: string
-          rating: number
-          start_feedback: string | null
-          stop_feedback: string | null
-          week_number: number | null
-        }
-        Insert: {
-          academic_year?: string | null
-          continue_feedback?: string | null
-          course_id: string
-          created_at?: string
-          id?: string
-          rating: number
-          start_feedback?: string | null
-          stop_feedback?: string | null
-          week_number?: number | null
-        }
-        Update: {
-          academic_year?: string | null
-          continue_feedback?: string | null
-          course_id?: string
-          created_at?: string
-          id?: string
-          rating?: number
-          start_feedback?: string | null
-          stop_feedback?: string | null
-          week_number?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "feedback_course_id_fkey"
-            columns: ["course_id"]
-            isOneToOne: false
-            referencedRelation: "courses"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      issue_messages: {
-        Row: {
-          created_at: string
-          id: string
-          issue_id: string
-          message: string
-          sender_type: Database["public"]["Enums"]["issue_sender_type"]
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          issue_id: string
-          message: string
-          sender_type: Database["public"]["Enums"]["issue_sender_type"]
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          issue_id?: string
-          message?: string
-          sender_type?: Database["public"]["Enums"]["issue_sender_type"]
-        }
-        Relationships: [
-          {
-            foreignKeyName: "issue_messages_issue_id_fkey"
-            columns: ["issue_id"]
-            isOneToOne: false
-            referencedRelation: "issues"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      issues: {
-        Row: {
-          academic_year: string | null
-          continue_feedback: string | null
-          course_id: string
-          created_at: string
-          id: string
           issue_code: string
           rating: number
           start_feedback: string | null
@@ -206,10 +130,42 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "issues_course_id_fkey"
+            foreignKeyName: "feedback_course_id_fkey"
             columns: ["course_id"]
             isOneToOne: false
             referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      feedback_messages: {
+        Row: {
+          created_at: string
+          feedback_id: string
+          id: string
+          message: string
+          sender_type: Database["public"]["Enums"]["issue_sender_type"]
+        }
+        Insert: {
+          created_at?: string
+          feedback_id: string
+          id?: string
+          message: string
+          sender_type: Database["public"]["Enums"]["issue_sender_type"]
+        }
+        Update: {
+          created_at?: string
+          feedback_id?: string
+          id?: string
+          message?: string
+          sender_type?: Database["public"]["Enums"]["issue_sender_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_messages_feedback_id_fkey"
+            columns: ["feedback_id"]
+            isOneToOne: false
+            referencedRelation: "feedback"
             referencedColumns: ["id"]
           },
         ]
@@ -636,9 +592,7 @@ export type OpportunityRow = Tables<'opportunities'>
 export type OpportunityInsert = TablesInsert<'opportunities'>
 export type SeniorRow = Tables<'seniors'>
 export type SeniorInsert = TablesInsert<'seniors'>
-export type IssueRow = Tables<'issues'>
-export type IssueInsert = TablesInsert<'issues'>
-export type IssueMessageRow = Tables<'issue_messages'>
-export type IssueMessageInsert = TablesInsert<'issue_messages'>
+export type FeedbackMessageRow = Tables<'feedback_messages'>
+export type FeedbackMessageInsert = TablesInsert<'feedback_messages'>
 export type IssueStatus = Enums<'issue_status'>
 export type UserRole = Enums<'user_role'>

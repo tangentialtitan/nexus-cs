@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { Navbar } from '@/components/layout/Navbar'
 import { createClient } from '@/lib/supabase/server'
-import { getPendingIssues, updateIssueStatus } from '../actions'
+import { getPendingFeedbacks, updateFeedbackStatus } from '../actions'
 
 const STATUS_STYLES = {
   open: 'bg-red-50 text-red-700 border-red-200',
@@ -10,7 +10,7 @@ const STATUS_STYLES = {
   resolved: 'bg-emerald-50 text-emerald-700 border-emerald-200',
 } as const
 
-export default async function PendingIssuesPage() {
+export default async function PulsePendingPage() {
   const supabase = await createClient()
 
   const {
@@ -27,39 +27,42 @@ export default async function PendingIssuesPage() {
 
   const role = ((profile as { role?: string } | null)?.role ?? '').toLowerCase()
   if (role !== 'convener' && role !== 'convenor') {
-    redirect('/issues')
+    redirect('/pulse')
   }
 
-  const issues = await getPendingIssues()
+  const feedbacks = await getPendingFeedbacks()
 
   return (
     <main className="min-h-screen bg-slate-50">
       <Navbar />
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="mb-6">
-          <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-1">Nexus · Convenor Queue</p>
+          <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-1">Nexus · Pulse Pending</p>
           <h1 className="text-2xl font-semibold text-slate-900">
-            Pending <span className="text-blue-600">Issues</span>
+            Pending <span className="text-blue-600">Feedback Issues</span>
           </h1>
           <p className="text-sm text-slate-500 mt-1">Only convenor can access this queue.</p>
         </div>
 
         <div className="space-y-3">
-          {issues.length === 0 ? (
+          {feedbacks.length === 0 ? (
             <div className="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-500">
-              No open or seen issues right now.
+              No open or seen feedback issues right now.
             </div>
           ) : (
-            issues.map((issue) => {
-              const course = (issue as { course?: { code?: string; name?: string } }).course
-              const status = (issue as { status?: 'open' | 'seen' | 'resolved' }).status ?? 'open'
+            feedbacks.map((feedback) => {
+              const course = (feedback as { course?: { code?: string; name?: string } }).course
+              const status = (feedback as { status?: 'open' | 'seen' | 'resolved' }).status ?? 'open'
               const statusClass = STATUS_STYLES[status]
 
               return (
-                <div key={(issue as { id: string }).id} className="rounded-xl border border-slate-200 bg-white p-4">
+                <div
+                  key={(feedback as { id: string }).id}
+                  className="rounded-xl border border-slate-200 bg-white p-4"
+                >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                      <p className="text-sm font-mono text-slate-900">{(issue as { issue_code: string }).issue_code}</p>
+                      <p className="text-sm font-mono text-slate-900">{(feedback as { issue_code: string }).issue_code}</p>
                       <p className="text-xs text-slate-500 mt-1">
                         {course ? `${course.code} · ${course.name}` : 'Unknown course'}
                       </p>
@@ -71,14 +74,14 @@ export default async function PendingIssuesPage() {
 
                   <div className="mt-4 flex flex-wrap items-center gap-3">
                     <Link
-                      href={`/issues/${(issue as { issue_code: string }).issue_code}`}
+                      href={`/pulse/${(feedback as { issue_code: string }).issue_code}`}
                       className="text-sm text-blue-600 hover:underline"
                     >
                       Open thread
                     </Link>
 
-                    <form action={updateIssueStatus} className="flex items-center gap-2">
-                      <input type="hidden" name="issue_id" value={(issue as { id: string }).id} />
+                    <form action={updateFeedbackStatus} className="flex items-center gap-2">
+                      <input type="hidden" name="feedback_id" value={(feedback as { id: string }).id} />
                       <select
                         name="status"
                         defaultValue={status}

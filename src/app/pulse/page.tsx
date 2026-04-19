@@ -1,8 +1,11 @@
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { getCourses, getFeedbackSummary } from './actions'
 import { FeedbackForm } from '@/components/pulse/FeedbackForm'
 import { Navbar } from '@/components/layout/Navbar'
+import { TrackFeedbackForm } from '@/components/pulse/TrackFeedbackForm'
+import type { Tables, UserRole } from '@/types/database'
 
 export default async function PulsePage() {
   const supabase = await createClient()
@@ -16,7 +19,8 @@ export default async function PulsePage() {
     .eq('id', session.user.id)
     .single()
 
-  const isAdmin = ['convener', 'admin'].includes((profile as any)?.role ?? 'student')
+  const role = ((profile as { role?: UserRole } | null)?.role ?? 'student')
+  const isAdmin = ['convener', 'admin'].includes(role)
 
   const [courses, summary] = await Promise.all([
     getCourses(),
@@ -54,7 +58,7 @@ export default async function PulsePage() {
                   </span>
                 </div>
                 <div className="px-5 py-4 space-y-3">
-                 {(summary as any[]).map((s) => (
+                 {(summary as Tables<'feedback_summary'>[]).map((s) => (
                     <div key={s.course_code} className="space-y-1">
                       <div className="flex items-center justify-between text-xs">
                         <span className="font-mono text-blue-600 font-medium">{s.course_code}</span>
@@ -71,6 +75,21 @@ export default async function PulsePage() {
                 </div>
               </div>
             )}
+
+            <div className="bg-white rounded-xl border border-slate-200 p-5">
+              <h2 className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3">
+                Track Feedback Issue
+              </h2>
+              <TrackFeedbackForm />
+              <p className="text-xs text-slate-500 mt-3">
+                Lost your issue ID? It cannot be recovered because submissions stay anonymous.
+              </p>
+              {isAdmin && (
+                <Link href="/pulse/pending" className="inline-block text-sm text-blue-600 hover:underline mt-2">
+                  Open pending queue
+                </Link>
+              )}
+            </div>
 
             <div className="bg-white rounded-xl border border-slate-200 p-5">
               <h2 className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3">

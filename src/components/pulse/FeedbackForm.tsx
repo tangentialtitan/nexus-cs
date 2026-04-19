@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useActionState, useRef, useState } from 'react'
 import { submitFeedback } from '@/app/pulse/actions'
 import type { FeedbackFormState } from '@/app/pulse/actions'
@@ -14,7 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge }    from '@/components/ui/badge'
 import { cn }       from '@/lib/utils'
-import { ShieldCheck, Send, Star, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react'
+import { ShieldCheck, Send, Star, AlertCircle, CheckCircle2, Loader2, Copy, MessageSquare } from 'lucide-react'
 
 interface FeedbackFormProps {
   courses: CourseOption[]
@@ -139,18 +140,43 @@ export function FeedbackForm({ courses }: FeedbackFormProps) {
     return acc
   }, {})
 
-  if (state.status === 'success') {
+  if (state.status === 'success' && state.issueCode) {
     return (
       <Card className="border-slate-200">
-        <CardContent className="py-16 flex flex-col items-center gap-4 text-center">
+        <CardContent className="py-12 flex flex-col items-center gap-4 text-center">
           <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
             <CheckCircle2 className="w-7 h-7 text-emerald-500" />
           </div>
           <div>
             <h3 className="font-semibold text-lg text-slate-900">Submitted!</h3>
-            <p className="text-sm text-slate-500 mt-1 max-w-xs">
-              Your anonymous response has been recorded and will be reviewed by the Class Convener.
+            <p className="text-sm text-slate-500 mt-1 max-w-md">
+              Your anonymous feedback is recorded. Save this Issue ID to track status and chat later.
             </p>
+          </div>
+          <div className="rounded-xl border border-blue-200 bg-blue-50 px-5 py-4 w-full max-w-md">
+            <p className="text-[10px] font-mono uppercase tracking-widest text-blue-600">Issue ID</p>
+            <p className="text-2xl font-mono font-semibold text-blue-700 mt-1">{state.issueCode}</p>
+            <p className="text-xs text-blue-700 mt-2">
+              Screenshot this code or note it down. It is not linked to your account.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={async () => {
+                await navigator.clipboard.writeText(state.issueCode as string)
+              }}
+            >
+              <Copy className="w-4 h-4 mr-2" />
+              Copy ID
+            </Button>
+            <Button asChild>
+              <Link href={`/pulse/${state.issueCode}`}>
+                <MessageSquare className="w-4 h-4 mr-2" />
+                Track / Chat
+              </Link>
+            </Button>
           </div>
           <Badge variant="outline" className="font-mono text-xs border-emerald-200 text-emerald-600">
             <ShieldCheck className="w-3 h-3 mr-1" />

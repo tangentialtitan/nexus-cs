@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation'
 const NAV_LINKS = [
   { href: '/dashboard',  label: 'Dashboard' },
   { href: '/pulse',      label: 'Pulse' },
-  { href: '/issues',     label: 'Issues' },
   { href: '/pathfinder', label: 'Pathfinder' },
   { href: '/vault',      label: 'Vault' },
 ]
@@ -47,7 +46,7 @@ export function Navbar() {
   const links = useMemo(() => {
     const items = [...NAV_LINKS]
     if (role === 'convener' || role === 'convenor') {
-      items.push({ href: '/issues/pending', label: 'Pending Issues' })
+      items.push({ href: '/pulse/pending', label: 'Pending Issues' })
     }
     return items
   }, [role])

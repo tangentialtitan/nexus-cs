@@ -1,24 +1,24 @@
 'use client'
 
 import { useActionState } from 'react'
-import { postIssueMessage } from '@/app/issues/actions'
-import type { MessageFormState } from '@/app/issues/actions'
+import { postFeedbackMessage } from '@/app/pulse/actions'
+import type { MessageFormState } from '@/app/pulse/actions'
 import type { Tables } from '@/types/database'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { AlertCircle, Loader2, Send } from 'lucide-react'
 
-type MessageRow = Pick<Tables<'issue_messages'>, 'id' | 'sender_type' | 'message' | 'created_at'>
+type MessageRow = Pick<Tables<'feedback_messages'>, 'id' | 'sender_type' | 'message' | 'created_at'>
 
-type IssueThreadProps = {
+type FeedbackThreadProps = {
   issueCode: string
   messages: MessageRow[]
 }
 
 const initialState: MessageFormState = { status: 'idle' }
 
-export function IssueThread({ issueCode, messages }: IssueThreadProps) {
-  const [state, formAction, isPending] = useActionState(postIssueMessage, initialState)
+export function FeedbackThread({ issueCode, messages }: FeedbackThreadProps) {
+  const [state, formAction, isPending] = useActionState(postFeedbackMessage, initialState)
 
   return (
     <div className="space-y-4">
