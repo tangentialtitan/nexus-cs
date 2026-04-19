@@ -6,7 +6,7 @@ const ACADEMICS = [
   {
     sem: 4,
     courses: [
-      { code: 'AK', name: 'Asmit Karmakar', link: 'http://10.17.3.50:8080/' },
+      { code: 'AK', name: 'Asmit Karmakar (username: iitd, password: iitd)', link: 'http://10.17.3.50:8080/' },
       { code: 'CM', name: 'Chinmay Mittal', link: 'https://github.com/ChinmayMittal' },
       { code: 'YA', name: 'Yash Aggarwal', link: 'https://wwwg1-my.sharepoint.com/:f:/g/personal/iitd_wwwg1_onmicrosoft_com/Etf4-KIvGTpOhn5NfhQOywwBeY1p0faOvUxLrLjHuYCFqw?e=fctZPD' },
       { code: 'HA', name: 'Har Ashish Arora', link: 'https://csciitd-my.sharepoint.com/personal/cs1240904_iitd_ac_in/_layouts/15/onedrive.aspx?ga=1' },
