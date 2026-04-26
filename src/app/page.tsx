@@ -15,7 +15,7 @@ export default function LandingPage() {
           <span className="text-blue-600">single source of truth</span>
         </h1>
         <p className="text-slate-500 text-lg max-w-xl mb-10">
-          Resources, feedback, and senior contacts — all in one place, built by Jay Shah, maintained by Abhinav P J.
+          Resources, feedback, and senior contacts — all in one place.
         </p>
         <Link
           href="/login"
