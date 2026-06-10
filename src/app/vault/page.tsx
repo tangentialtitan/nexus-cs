@@ -14,6 +14,8 @@ const ACADEMICS = [
       { code: 'DE', name: 'DE Reviews', link: 'https://docs.google.com/spreadsheets/d/151JDj4JJglq-V0tNdU3jOvYux0-WSRn0ExfZYrmEVeo/edit?gid=0#gid=0' },
       {code: 'HU', name: 'HUL Reviews',link:'https://docs.google.com/spreadsheets/d/15EjLX3WTlJa_MASjmB7QLaSjCeY2yFhw1GHx4c-qFMI/edit?gid=1233837036#gid=1233837036' },
       { code: 'VE', name: 'Videep Ekbote', link: 'https://videepekbote.github.io/' },
+      {code: 'VM',name: 'Vishwas Middha',link: 'https://github.com/vishwasmiddha/internship-resources'},
+      { code: 'IS', name: 'Intern Statistics',link: 'https://iitd-resources.notion.site/' }
     ]
   }
 ]
@@ -37,6 +39,8 @@ const COURSE_COLORS: Record<string, string> = {
   'DE': 'bg-green-50 text-green-700 border-green-200',
   'HU': 'bg-yellow-50 text-yellow-700 border-yellow-200',
   'VE': 'bg-cyan-50 text-cyan-700 border-cyan-200',
+  'VM': 'bg-indigo-50 text-indigo-700 border-indigo-200',
+  'IS': 'bg-gray-50 text-gray-700 border-gray-200',
 }
 
 export default function VaultPage() {

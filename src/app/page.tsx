@@ -37,12 +37,12 @@ export default function LandingPage() {
             icon: '📊',
             title: 'The Pulse',
             desc: 'Submit anonymous feedback for your courses every week.',
-          },
-          {
-            icon: '🧭',
-            title: 'Pathfinder',
-            desc: 'Connect with seniors placed in Consult, Finance, Tech, Core and more.',
-          },
+           },
+          // {
+          //   icon: '🧭',
+          //   title: 'Pathfinder',
+          //   desc: 'Connect with seniors placed in Consult, Finance, Tech, Core and more.',
+          // },
         ].map((f) => (
           <div key={f.title} className="bg-white border border-slate-200 rounded-xl p-6">
             <div className="text-2xl mb-3">{f.icon}</div>

@@ -17,11 +17,21 @@ Create a .env file at the project root (or update the existing one) with:
 
 NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_PROJECT_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+SUPABASE_SERVICE_ROLE_KEY=YOUR_SUPABASE_SERVICE_ROLE_KEY
+GMAIL_SMTP_USER=YOUR_GMAIL_ADDRESS
+GMAIL_SMTP_PASS=YOUR_GMAIL_APP_PASSWORD
+GMAIL_FROM="Nexus Digest <yourgmail@gmail.com>"
+# Optional: protect the cron endpoint
+CRON_SECRET=YOUR_CRON_SECRET
+# Optional: override upcoming window (days)
+DIGEST_UPCOMING_DAYS=3
 
 These are used by:
 
 - src/lib/supabase/client.ts
 - src/lib/supabase/server.ts
+
+The digest mailer also uses the Gmail SMTP credentials and the service role key.
 
 ## 3) Enable Google OAuth (Supabase Auth)
 
@@ -84,6 +94,7 @@ profiles
 - entry_year integer null
 - role user_role not null
 - avatar_url text null
+- digest_opt_out boolean not null default false
 - created_at timestamptz not null default now()
 - updated_at timestamptz not null default now()
 
@@ -193,6 +204,9 @@ feedback_summary (view)
 ### SQL you can paste into the Supabase SQL editor
 
 create extension if not exists pgcrypto;
+
+alter table profiles
+  add column if not exists digest_opt_out boolean not null default false;
 
 create type user_role as enum ('student', 'convener', 'admin', 'committee');
 create type resource_category as enum ('PYQ', 'Lecture Notes', 'Lab Manual', 'Tutorial', 'Reference Book', 'Other');
