@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 const NAV_LINKS = [
   { href: '/dashboard',  label: 'Dashboard' },
   { href: '/pulse',      label: 'Pulse' },
-  { href: '/pathfinder', label: 'Pathfinder' },
+  //{ href: '/pathfinder', label: 'Pathfinder' },
   { href: '/vault',      label: 'Vault' },
 ]
 
