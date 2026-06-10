@@ -102,16 +102,16 @@ const roleTitle = ROLE_TITLE[role] ?? ''
         hover: 'hover:bg-emerald-100',
         text: 'text-emerald-600',
       },
-      {
-        icon: '🧭',
-        title: 'Pathfinder',
-        desc: 'Senior contacts across domains',
-        href: '/pathfinder',
-        bg: 'bg-violet-50',
-        border: 'border-violet-100',
-        hover: 'hover:bg-violet-100',
-        text: 'text-violet-600',
-      },
+      // {
+      //   icon: '🧭',
+      //   title: 'Pathfinder',
+      //   desc: 'Senior contacts across domains',
+      //   href: '/pathfinder',
+      //   bg: 'bg-violet-50',
+      //   border: 'border-violet-100',
+      //   hover: 'hover:bg-violet-100',
+      //   text: 'text-violet-600',
+      // },
     ]
 
     return (
