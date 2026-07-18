@@ -1,6 +1,7 @@
   import { redirect } from 'next/navigation'
   import { createClient } from '@/lib/supabase/server'
   import { Navbar } from '@/components/layout/Navbar'
+  import { AnnouncementEmailToggle } from '@/components/dashboard/AnnouncementEmailToggle'
   import Link from 'next/link'
 
   function getIstDayRange(referenceDate = new Date()) {
@@ -34,7 +35,7 @@
 
     const { data: profile } = await supabase
       .from('profiles')
-      .select('full_name, role')
+      .select('full_name, role, digest_opt_out')
       .eq('id', session.user.id)
       .single()
 
@@ -189,6 +190,12 @@ const roleTitle = ROLE_TITLE[role] ?? ''
                         + Add
                     </Link>
                   )}
+                </div>
+
+                <div className="px-5 py-3 border-b border-slate-100 bg-slate-50/60">
+                  <AnnouncementEmailToggle
+                    digestOptOut={(profile as { digest_opt_out?: boolean | null } | null)?.digest_opt_out ?? false}
+                  />
                 </div>
 
                 <div className="divide-y divide-slate-50">
