@@ -103,8 +103,7 @@ courses
 - id uuid primary key
 - code text not null
 - name text not null
-- semester integer not null
-- credits integer null
+- credits numeric null
 - is_active boolean not null default true
 - created_at timestamptz not null default now()
 
@@ -195,7 +194,6 @@ feedback_summary (view)
 
 - course_code text
 - course_name text
-- semester integer
 - total_responses integer
 - avg_rating numeric
 - positive_count integer
@@ -206,7 +204,10 @@ feedback_summary (view)
 create extension if not exists pgcrypto;
 
 alter table profiles
-  add column if not exists digest_opt_out boolean not null default false;
+  add column if not exists digest_opt_out boolean not null default true;
+
+alter table courses
+  alter column credits type numeric using credits::numeric;
 
 create type user_role as enum ('student', 'convener', 'admin', 'committee');
 create type resource_category as enum ('PYQ', 'Lecture Notes', 'Lab Manual', 'Tutorial', 'Reference Book', 'Other');
@@ -229,8 +230,7 @@ create table courses (
   id uuid primary key default gen_random_uuid(),
   code text not null,
   name text not null,
-  semester integer not null,
-  credits integer,
+  credits numeric,
   is_active boolean not null default true,
   created_at timestamptz not null default now()
 );
@@ -325,14 +325,13 @@ create view feedback_summary as
 select
   c.code as course_code,
   c.name as course_name,
-  c.semester,
   count(f.id) as total_responses,
   avg(f.rating)::numeric(10,2) as avg_rating,
   count(*) filter (where f.rating >= 4) as positive_count,
   count(*) filter (where f.rating <= 2) as negative_count
 from feedback f
 join courses c on c.id = f.course_id
-group by c.code, c.name, c.semester;
+group by c.code, c.name;
 
 ## 5) Run the app
 

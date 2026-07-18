@@ -64,7 +64,7 @@ export default function VaultPage() {
               {ACADEMICS.map(function(sem_data) {
                 return (
                   <div key={sem_data.sem}>
-                    <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3">Semester {sem_data.sem}</p>
+                    <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3"></p>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                       {sem_data.courses.map(function(course) {
                         const color = COURSE_COLORS[course.code] || 'bg-slate-50 text-slate-700 border-slate-200'

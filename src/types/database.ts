@@ -63,7 +63,6 @@ export type Database = {
           id: string
           is_active: boolean
           name: string
-          semester: number
         }
         Insert: {
           code: string
@@ -72,7 +71,6 @@ export type Database = {
           id?: string
           is_active?: boolean
           name: string
-          semester: number
         }
         Update: {
           code?: string
@@ -81,7 +79,6 @@ export type Database = {
           id?: string
           is_active?: boolean
           name?: string
-          semester?: number
         }
         Relationships: []
       }
@@ -414,7 +411,6 @@ export type Database = {
           course_name: string | null
           negative_count: number | null
           positive_count: number | null
-          semester: number | null
           total_responses: number | null
         }
         Relationships: []

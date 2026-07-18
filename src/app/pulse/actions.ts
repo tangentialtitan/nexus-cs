@@ -18,7 +18,7 @@ export type MessageFormState = {
 const STATUS_OPTIONS: IssueStatus[] = ['open', 'seen', 'resolved']
 
 function getCurrentWeekNumber(): number {
-  const semesterStart = new Date('2025-01-06')
+  const semesterStart = new Date('2026-15-07')
   const now = new Date()
   const diffMs = now.getTime() - semesterStart.getTime()
   const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000)) + 1
@@ -130,9 +130,8 @@ export async function getCourses() {
   const supabase = await createClient()
 
   const {data, error} = await supabase.from('courses')
-                            .select('id, code, name, semester')
+                            .select('id, code, name')
                             .eq('is_active', true)
-                            .order('semester', {ascending: true})
                             .order('code', {ascending: true})
 
   if (error) {
@@ -159,7 +158,7 @@ export async function getFeedbackSummary() {
   if (!profile || !['convener', 'admin'].includes(role)) return null
 
   const {data, error} =
-      await supabase.from('feedback_summary').select('*').order('semester', {
+      await supabase.from('feedback_summary').select('*').order('course_code', {
         ascending: true
       })
 
@@ -181,7 +180,7 @@ type FeedbackLookup = {
   stop_feedback: string | null
   start_feedback: string | null
   continue_feedback: string | null
-  course: Pick<Tables<'courses'>, 'code'|'name'|'semester'> | null
+  course: Pick<Tables<'courses'>, 'code'|'name'> | null
 }
 
 export async function lookupFeedbackByCode(rawCode: string): Promise<FeedbackLookup | null> {
@@ -201,7 +200,7 @@ export async function lookupFeedbackByCode(rawCode: string): Promise<FeedbackLoo
         stop_feedback,
         start_feedback,
         continue_feedback,
-        course:courses(code, name, semester)
+        course:courses(code, name)
       `)
                             .eq('issue_code', issueCode)
                             .maybeSingle()
@@ -340,7 +339,7 @@ export async function getPendingFeedbacks() {
         created_at,
         updated_at,
         rating,
-        course:courses(code, name, semester)
+        course:courses(code, name)
       `)
                             .in('status', ['open', 'seen'])
                             .order('updated_at', {ascending: false})

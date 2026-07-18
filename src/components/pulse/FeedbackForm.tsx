@@ -6,7 +6,7 @@ import { submitFeedback } from '@/app/pulse/actions'
 import type { FeedbackFormState } from '@/app/pulse/actions'
 import type { Tables } from '@/types/database'
 
-type CourseOption = Pick<Tables<'courses'>, 'id' | 'code' | 'name' | 'semester'>
+type CourseOption = Pick<Tables<'courses'>, 'id' | 'code' | 'name' >
 
 import { Button }   from '@/components/ui/button'
 import { Label }    from '@/components/ui/label'
@@ -135,11 +135,6 @@ export function FeedbackForm({ courses }: FeedbackFormProps) {
 
   const isValid = !!courseId && rating > 0
 
-  const bySemester = courses.reduce<Record<number, CourseOption[]>>((acc, c) => {
-    ;(acc[c.semester] ??= []).push(c)
-    return acc
-  }, {})
-
   if (state.status === 'success' && state.issueCode) {
     return (
       <Card className="border-slate-200">
@@ -221,21 +216,12 @@ export function FeedbackForm({ courses }: FeedbackFormProps) {
                 <SelectValue placeholder="Select a course…" />
               </SelectTrigger>
               <SelectContent className="max-h-72">
-                {Object.entries(bySemester)
-                  .sort(([a], [b]) => Number(a) - Number(b))
-                  .map(([sem, list]) => (
-                    <div key={sem}>
-                      <p className="px-2 py-1.5 text-[10px] font-mono text-slate-400 uppercase tracking-widest">
-                        Semester {sem}
-                      </p>
-                      {list.map((c) => (
-                        <SelectItem key={c.id} value={c.id}>
-                          <span className="font-mono text-blue-600 mr-2">{c.code}</span>
-                          <span className="text-sm">{c.name}</span>
-                        </SelectItem>
-                      ))}
-                    </div>
-                  ))}
+                {courses.map((c) => (
+                  <SelectItem key={c.id} value={c.id}>
+                    <span className="font-mono text-blue-600 mr-2">{c.code}</span>
+                    <span className="text-sm">{c.name}</span>
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
