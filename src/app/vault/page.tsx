@@ -16,7 +16,7 @@ const ACADEMICS = [
       { code: 'VE', name: 'Videep Ekbote', link: 'https://videepekbote.github.io/' },
       {code: 'VM',name: 'Vishwas Middha',link: 'https://github.com/vishwasmiddha/internship-resources'},
       { code: 'IS', name: 'Intern Statistics',link: 'https://iitd-resources.notion.site/' },
-      {code: 'S5',name: 'Semester 5 Resources - needed',link: 'https://make-a-drive-please' }
+      {code: 'S5',name: 'Semester 5 Resources - needed',link: 'https://make-a-drive-please' },
       {code: 'OCS',name: 'On campus comapnies- Abhinav P J',link:'https://docs.google.com/spreadsheets/d/1WcD3CihkFzn5lUgTBDnp9T2TYdItHZEQ3-pdzuhbWTg/edit?usp=sharing'}
     ]
   }
