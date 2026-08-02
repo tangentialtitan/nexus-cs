@@ -4,7 +4,7 @@ import { Navbar } from '@/components/layout/Navbar'
 
 const ACADEMICS = [
   {
-    sem: 4,
+    sem: 5,
     courses: [
       { code: 'AK', name: 'Asmit Karmakar (username: iitd, password: iitd)', link: 'http://10.17.3.50:8080/' },
       { code: 'CM', name: 'Chinmay Mittal', link: 'https://github.com/ChinmayMittal' },
@@ -16,8 +16,9 @@ const ACADEMICS = [
       { code: 'VE', name: 'Videep Ekbote', link: 'https://videepekbote.github.io/' },
       {code: 'VM',name: 'Vishwas Middha',link: 'https://github.com/vishwasmiddha/internship-resources'},
       { code: 'IS', name: 'Intern Statistics',link: 'https://iitd-resources.notion.site/' },
-      {code: 'S5',name: 'Semester 5 Resources - needed',link: 'https://make-a-drive-please' },
-      {code: 'OCS',name: 'On campus comapnies- Abhinav P J',link:'https://docs.google.com/spreadsheets/d/1WcD3CihkFzn5lUgTBDnp9T2TYdItHZEQ3-pdzuhbWTg/edit?usp=sharing'}
+      {code: 'S5',name: 'Semester 5 Resources- Asmit',link: 'https://wwwg1-my.sharepoint.com/:f:/g/personal/seeker220_wwwg1_onmicrosoft_com/IgDKVFYFEipGSKwD2kBemSPHAV8h8gpT8U3ni7KR5yWFxrg' },
+      {code: 'OCS',name: 'On campus comapnies- Abhinav P J',link:'https://docs.google.com/spreadsheets/d/1WcD3CihkFzn5lUgTBDnp9T2TYdItHZEQ3-pdzuhbWTg/edit?usp=sharing'},
+    {code: 'ODB', name: 'OCS Offers Database- Abhinav P J', link:' https://docs.google.com/spreadsheets/d/1e7su52o4XaEfY-dsSXypID1z9X8TrX_XoC5MY-F1aVM/edit?usp=sharing'}
     ]
   }
 ]
@@ -45,6 +46,7 @@ const COURSE_COLORS: Record<string, string> = {
   'IS': 'bg-gray-50 text-gray-700 border-gray-200',
   'S5': 'bg-rose-50 text-rose-700 border-rose-200',
   'OCS': 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200',
+  'ODB': 'bg-lime-50 text-lime-700 border-lime-200',
 }
 
 export default function VaultPage() {
