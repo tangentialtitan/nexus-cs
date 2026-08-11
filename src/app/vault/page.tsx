@@ -18,7 +18,8 @@ const ACADEMICS = [
       { code: 'IS', name: 'Intern Statistics',link: 'https://iitd-resources.notion.site/' },
       {code: 'S5',name: 'Semester 5 Resources- Asmit',link: 'https://wwwg1-my.sharepoint.com/:f:/g/personal/seeker220_wwwg1_onmicrosoft_com/IgDKVFYFEipGSKwD2kBemSPHAV8h8gpT8U3ni7KR5yWFxrg' },
       {code: 'OCS',name: 'On campus comapnies- Abhinav P J',link:'https://docs.google.com/spreadsheets/d/1WcD3CihkFzn5lUgTBDnp9T2TYdItHZEQ3-pdzuhbWTg/edit?usp=sharing'},
-    {code: 'ODB', name: 'OCS Offers Database- Abhinav P J', link:' https://docs.google.com/spreadsheets/d/1e7su52o4XaEfY-dsSXypID1z9X8TrX_XoC5MY-F1aVM/edit?usp=sharing'}
+      {code: 'ODB', name: 'OCS Offers Database- Abhinav P J', link:' https://docs.google.com/spreadsheets/d/1e7su52o4XaEfY-dsSXypID1z9X8TrX_XoC5MY-F1aVM/edit?usp=sharing'},
+      {code: 'COS', name: 'Courses offered search - Asmit',link:'https://iitd-courses-offered-search.vercel.app'}
     ]
   }
 ]
@@ -47,6 +48,7 @@ const COURSE_COLORS: Record<string, string> = {
   'S5': 'bg-rose-50 text-rose-700 border-rose-200',
   'OCS': 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200',
   'ODB': 'bg-lime-50 text-lime-700 border-lime-200',
+  'COS': 'bg-amber-50 text-amber-700 border-amber-200',
 }
 
 export default function VaultPage() {
